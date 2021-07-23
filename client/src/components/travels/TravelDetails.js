@@ -22,6 +22,22 @@ class TravelDetails extends Component {
         })
     }
 
+    deleteTravel = () => {
+        console.log('this is this.props.match.params.id: ', this.props.match.params.id)
+        const travelId = this.props.match.params.id;
+        axios
+        .delete(`http://localhost:5005/api/travels/${travelId}`)
+        .then(resp => {
+            console.log('resp from axios: ', resp);
+            this.setState({
+                travel: resp.data
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
     componentDidMount(){
         this.getTravel();
     }
@@ -39,7 +55,7 @@ class TravelDetails extends Component {
                     {/* <p>{travel.transportation}</p> */}
                     <img src={travel.picture} alt={travel.city} height="250px" />
                     <button type="submit">Edit</button>
-                    <button type="submit">Delete</button>
+                    <button type="submit" onClick={this.deleteTravel}>Delete</button>
                 </div>
 		    </div>
 		)

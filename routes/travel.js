@@ -32,6 +32,13 @@ router.get('/api/travels', (req, res, next) => {
       .catch(err => res.json(err));
 });
 
+// GET route => to get a specific travel
+router.delete('/api/travels/:travelId', (req, res, next) => {
+  Travel.findByIdAndDelete(req.params.travelId)
+    .then(response => res.json(response))
+    .catch(err => res.json(err));
+});
+
 // router.get('/travels/new', (req, res, next) => {
 // 	console.log('----->>> GET /travels/new called');
 // 	// if (req.user.role === 'admin')
