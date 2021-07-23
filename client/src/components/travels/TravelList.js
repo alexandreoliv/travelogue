@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class TravelList extends Component {
     state = { 
         travels: []
     }
     
-    componentDidMount(){
+    componentDidMount() {
         axios.get('http://localhost:5005/travels')
         .then (resp => {
             this.setState({
@@ -23,11 +24,12 @@ class TravelList extends Component {
             {this.state.travels.map(travel => {
                 return (
                     <div key={travel._id} style={{border: "1px solid black", width: "50vw"}}>
-                        <p>Country: {travel.country}</p>
-                        <p>City: {travel.city}</p>
+                        <Link 
+                            key={travel._id}
+                            to={`/travels/${travel._id}`}>
+                            <h3>{travel.country} / {travel.city}</h3>
+                        </Link>
                         <p>Date: {travel.date}</p>
-                        {/* <p>{travel.transportation}</p> */}
-                        <img src={travel.picture} alt={travel.city} height="250px" />
                     </div>
                 )
             })}

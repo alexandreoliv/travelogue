@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import TravelList from './components/travels/TravelList';
+import TravelDetails from './components/travels/TravelDetails';
+import { Route, Redirect } from 'react-router-dom';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWxleGFuZHJlb2xpdiIsImEiOiJja3FtYTIxYm4wMHJkMnVtaGMyZ2t2dmF0In0.AVesP7QNz89Q7ND7AF2ikQ';
 
@@ -30,6 +32,10 @@ class App extends Component {
 			<div className="App">
 				<div ref={this.mapContainer} className="map-container" />
 				<TravelList />
+				<Route
+					exact path='/travels/:id'
+					component={TravelDetails}
+        		/>
 			</div>
 		)
 	}

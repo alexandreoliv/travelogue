@@ -18,6 +18,13 @@ router.post('/travels', (req, res, next) => {
       .catch(err => res.json(err));
 });
 
+// GET route => to get a specific travel
+router.get('/travels/:travelId', (req, res, next) => {
+    Travel.findById(req.params.travelId)
+      .then(response => res.json(response))
+      .catch(err => res.json(err));
+});
+
 // GET route => to get all the travels
 router.get('/travels', (req, res, next) => {
     Travel.find()
