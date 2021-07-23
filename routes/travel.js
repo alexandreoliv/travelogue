@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Travel = require('../models/Travel');
 
 // POST route => to create a new travel
-router.post('/travels', (req, res, next) => {
+router.post('/api/travels', (req, res, next) => {
     const { country, city, date, transportation, picture } = req.body;
    
     Travel.create({
@@ -19,14 +19,14 @@ router.post('/travels', (req, res, next) => {
 });
 
 // GET route => to get a specific travel
-router.get('/travels/:travelId', (req, res, next) => {
+router.get('/api/travels/:travelId', (req, res, next) => {
     Travel.findById(req.params.travelId)
       .then(response => res.json(response))
       .catch(err => res.json(err));
 });
 
 // GET route => to get all the travels
-router.get('/travels', (req, res, next) => {
+router.get('/api/travels', (req, res, next) => {
     Travel.find()
       .then(response => res.json(response))
       .catch(err => res.json(err));

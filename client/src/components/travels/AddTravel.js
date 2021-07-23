@@ -23,7 +23,7 @@ class AddTravel extends Component {
 		const picture = this.state.picture;
 
 		axios
-			.post('http://localhost:5005/travels', { country, city, date, transportation, picture })
+			.post('http://localhost:5005/api/travels', { country, city, date, transportation, picture })
 			.then( () => {
 				// this.props.getData();
 				this.setState({ country: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
@@ -40,16 +40,26 @@ class AddTravel extends Component {
         return (
 			<div>
 				<form onSubmit={this.handleFormSubmit}>
-				<label>Country:</label>
-				<input type="text" name="country" value={this.state.country} onChange={ e => this.handleChange(e)}/>
-				<label>City:</label>
-				<textarea name="city" value={this.state.city} onChange={ e => this.handleChange(e)} />
-				<label>Date:</label>
-				<textarea name="date" value={this.state.date} onChange={ e => this.handleChange(e)} />
-				<label>Transportation:</label>
-				<textarea name="transportation" value={this.state.transportation} onChange={ e => this.handleChange(e)} />
-				<label>Picture:</label>
-				<textarea name="picture" value={this.state.picture} onChange={ e => this.handleChange(e)} />
+				<div>
+					<label>Country: </label>
+					<input type="text" name="country" onChange={ e => this.handleChange(e)}/>
+				</div>
+				<div>
+					<label>City: </label>
+					<textarea name="city" onChange={ e => this.handleChange(e)} />
+				</div>
+				<div>
+					<label>Date: </label>
+					<textarea name="date" onChange={ e => this.handleChange(e)} />
+				</div>
+				<div>
+					<label>Transportation: </label>
+					<textarea name="transportation" onChange={ e => this.handleChange(e)} />
+				</div>
+				<div>
+					<label>Picture: </label>
+					<textarea name="picture" onChange={ e => this.handleChange(e)} />
+				</div>
 				
 				<input type="submit" value="Submit" />
 				</form>

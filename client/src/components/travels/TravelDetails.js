@@ -10,7 +10,7 @@ class TravelDetails extends Component {
         console.log('this is this.props.match.params.id: ', this.props.match.params.id)
         const travelId = this.props.match.params.id;
         axios
-        .get(`http://localhost:5005/travels/${travelId}`)
+        .get(`http://localhost:5005/api/travels/${travelId}`)
         .then(resp => {
             console.log('resp from axios: ', resp);
             this.setState({
@@ -35,9 +35,11 @@ class TravelDetails extends Component {
                 <div key={travel._id} style={{border: "1px solid black", width: "50vw"}}>
                     <p>Country: {travel.country}</p>
                     <p>City: {travel.city}</p>
-                    <p>Date: {travel.date}</p>
+                    <p>Year: {travel.date}</p>
                     {/* <p>{travel.transportation}</p> */}
                     <img src={travel.picture} alt={travel.city} height="250px" />
+                    <button type="submit">Edit</button>
+                    <button type="submit">Delete</button>
                 </div>
 		    </div>
 		)
