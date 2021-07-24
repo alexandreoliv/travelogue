@@ -36,29 +36,32 @@ class AddTravel extends Component {
 		this.setState({[name]: value});
 	}
  
+	componentDidUpdate(prevProps) {
+    }
+
 	render() {
         return (
 			<div>
 				<form onSubmit={this.handleFormSubmit}>
 				<div>
 					<label>Country: </label>
-					<input type="text" name="country" onChange={ e => this.handleChange(e)}/>
+					<input type="text" name="country" onChange={ e => this.handleChange(e) }/>
 				</div>
 				<div>
 					<label>City: </label>
-					<textarea name="city" onChange={ e => this.handleChange(e)} />
+					<textarea name="city" onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
 					<label>Date: </label>
-					<textarea name="date" onChange={ e => this.handleChange(e)} />
+					<textarea name="date" onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
 					<label>Transportation: </label>
-					<textarea name="transportation" onChange={ e => this.handleChange(e)} />
+					<textarea name="transportation" onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
 					<label>Picture: </label>
-					<textarea name="picture" onChange={ e => this.handleChange(e)} />
+					<textarea name="picture" onChange={ e => this.handleChange(e) } />
 				</div>
 				
 				<input type="submit" value="Submit" />

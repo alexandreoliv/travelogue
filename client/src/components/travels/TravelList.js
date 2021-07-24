@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AddTravel from './AddTravel';
 import TravelDetails from './TravelDetails';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 class TravelList extends Component {
     state = { 
@@ -35,7 +35,10 @@ class TravelList extends Component {
             <div className="travel-list">
                 <div>
                     <div>
-                        <AddTravel getData={() => this.getAllTravels()}/>
+                        {/* <AddTravel getData={() => this.getAllTravels()}/> */}
+                        <a href="/travels/new">
+                            <button type="submit">Add new travel</button>
+                        </a>
                     </div>
                     <div>
                     {this.state.travels.map(travel => {
@@ -53,10 +56,20 @@ class TravelList extends Component {
                     </div>
                 </div>
                 <div>
-                    <Route
+                    <Switch>
+                        <Route
+                            exact path='/travels/new'
+                            component={AddTravel}
+                        />
+                        <Route
+                            exact path='/travels/:id'
+                            component={TravelDetails}
+                        />
+                    </Switch>
+                    {/* <Route
                         exact path='/travels/:id'
                         component={TravelDetails}
-                    />
+                    /> */}
                 </div>
                 {/* <div style={{width: '40%', float:"right"}}> */}
             </div>
