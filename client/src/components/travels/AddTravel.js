@@ -36,7 +36,7 @@ class AddTravel extends Component {
 		this.setState({[name]: value});
 	}
  
-    render() {
+	render() {
         return (
 			<div>
 				<form onSubmit={this.handleFormSubmit}>

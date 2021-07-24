@@ -36,10 +36,16 @@ class TravelDetails extends Component {
         .catch(err => {
             console.log(err);
         })
+        this.componentDidUpdate();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getTravel();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props)
+            this.getTravel();
     }
 
     render() {
