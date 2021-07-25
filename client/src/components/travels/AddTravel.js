@@ -5,6 +5,7 @@ class AddTravel extends Component {
     state = { 
         owner: "",
         country: "",
+		countryCode: "",
         city: "",
         date: "",
         transportation: {
@@ -17,16 +18,17 @@ class AddTravel extends Component {
 	handleFormSubmit = (event) => {
 		event.preventDefault();
 		const country = this.state.country;
+		const countryCode = this.state.countryCode;
 		const city = this.state.city;
 		const date = this.state.date;
 		const transportation = this.state.transportation;
 		const picture = this.state.picture;
 
 		axios
-			.post('http://localhost:5005/api/travels', { country, city, date, transportation, picture })
+			.post('http://localhost:5005/api/travels', { country, countryCode, city, date, transportation, picture })
 			.then( () => {
 				// this.props.getData();
-				this.setState({ country: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
+				this.setState({ country: "", countryCode: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
 			})
 			.catch( error => console.log(error) )
 	}
@@ -37,15 +39,21 @@ class AddTravel extends Component {
 	}
  
 	componentDidUpdate(prevProps) {
+		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE AddTravel.js <<<<<<------")
     }
 
 	render() {
+		console.log("------>>>>>> I'M RUNNING render() FROM INSIDE AddTravel.js <<<<<<------")
         return (
 			<div>
 				<form onSubmit={this.handleFormSubmit}>
 				<div>
 					<label>Country: </label>
 					<input type="text" name="country" onChange={ e => this.handleChange(e) }/>
+				</div>
+				<div>
+					<label>Country code: </label>
+					<input type="text" name="countryCode" onChange={ e => this.handleChange(e) }/>
 				</div>
 				<div>
 					<label>City: </label>

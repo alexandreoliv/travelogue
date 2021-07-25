@@ -1,36 +1,30 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AddTravel from './AddTravel';
 import TravelDetails from './TravelDetails';
 import { Route, Switch } from 'react-router-dom';
 
 class TravelList extends Component {
-    state = { 
-        travels: []
-    }
+    // state = { 
+    //     travels: []
+    // }
     
-    getAllTravels = () => {
-        axios.get('http://localhost:5005/api/travels')
-        .then (response => {
-            this.setState({
-                travels: response.data
-            })
-            console.log(this.state.travels)
-        })
-        .catch(err => console.log(err));
-    }
-
     componentDidMount() {
-        this.getAllTravels();
+        console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE TravelList.js <<<<<<------")
+        // this.getAllTravels();
+        // this.setState({
+        //     travels: props.travels
+        // })
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps !== this.props)
-            this.getAllTravels();
+        console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE TravelList.js <<<<<<------")
+        // if (prevProps !== this.props)
+        //     this.getAllTravels();
     }
 
     render() {
+        console.log("------>>>>>> I'M RUNNING render() FROM INSIDE TravelList.js <<<<<<------")
         return (
             <div className="travel-list">
                 <div>
@@ -41,7 +35,7 @@ class TravelList extends Component {
                         </a>
                     </div>
                     <div>
-                    {this.state.travels.map(travel => {
+                    {this.props.travels.map(travel => {
                         return (
                             <div key={travel._id} style={{border: "1px solid black", width: "50vw"}}>
                                 <Link 

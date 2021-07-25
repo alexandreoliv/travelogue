@@ -7,12 +7,13 @@ class TravelDetails extends Component {
     }
     
     getTravel = () => {
-        console.log('this is this.props.match.params.id: ', this.props.match.params.id)
+        console.log("------>>>>>> I'M RUNNING getTravel() FROM INSIDE TravelDetails.js <<<<<<------")
+        console.log('this is this.props.match.params.id from inside TravelDetails/getTravel: ', this.props.match.params.id)
         const travelId = this.props.match.params.id;
         axios
         .get(`http://localhost:5005/api/travels/${travelId}`)
         .then(resp => {
-            console.log('resp from axios: ', resp);
+            console.log('resp from axios from inside TravelDetails/getTravel: ', resp);
             this.setState({
                 travel: resp.data
             })
@@ -20,37 +21,23 @@ class TravelDetails extends Component {
         .catch(err => {
             console.log(err);
         })
-    }
-
-    deleteTravel = () => {
-        console.log('this is this.props.match.params.id: ', this.props.match.params.id)
-        const travelId = this.props.match.params.id;
-        axios
-        .delete(`http://localhost:5005/api/travels/${travelId}`)
-        .then(resp => {
-            console.log('resp from axios: ', resp);
-            this.setState({
-                travel: resp.data
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        this.componentDidUpdate();
     }
 
     componentDidMount() {
+        console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE TravelDetails.js <<<<<<------")
         this.getTravel();
     }
 
     componentDidUpdate(prevProps) {
+        console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE TravelDetails.js <<<<<<------")
         if (prevProps !== this.props)
             this.getTravel();
     }
 
     render() {
+        console.log("------>>>>>> I'M RUNNING render() FROM INSIDE TravelDetails.js <<<<<<------")
         const { travel } = this.state;
-        console.log('this.state.travel inside the render: ', travel)
+        console.log('this.state.travel from inside TravelDetails/render: ', travel)
         if (!travel) return <></>;
         return (
 			<div>
