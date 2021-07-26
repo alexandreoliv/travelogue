@@ -5,12 +5,7 @@ const travelSchema = new Schema({
 	country: String,
 	countryCode: String,
     city: String,
-    date: Date,
-	transportation: {
-		in: String,
-		out: String
-	},
-    picture: String
+    date: Date
 });
 
 const Travel = model("Travel", travelSchema);

@@ -36,7 +36,7 @@ class App extends Component {
         .catch(err => console.log(err));
     }
 
-	addTravel = (country, countryCode, city, date, transportation, picture) => {
+	addTravel = (country, countryCode, city, date) => {
         console.log("------>>>>>> I'M RUNNING addTravel() FROM INSIDE App.js <<<<<<------")
 		console.log("this is props inside App.js/addTravel: ", this.props)
         axios({
@@ -46,9 +46,7 @@ class App extends Component {
 				country,
 				countryCode,
 				city,
-				date,
-				transportation,
-				picture
+				date
 			}
 		})			
         .then(resp => {

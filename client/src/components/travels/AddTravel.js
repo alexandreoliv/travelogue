@@ -6,12 +6,7 @@ class AddTravel extends Component {
         country: "",
 		countryCode: "",
         city: "",
-        date: "",
-        transportation: {
-            in: "",
-            out: ""
-        },
-        picture: ""
+        date: ""
     }
 
 	handleFormSubmit = (event) => {
@@ -21,11 +16,9 @@ class AddTravel extends Component {
 		const countryCode = this.state.countryCode;
 		const city = this.state.city;
 		const date = this.state.date;
-		const transportation = this.state.transportation;
-		const picture = this.state.picture;
 
-		this.props.addTravel(country, countryCode, city, date, transportation, picture);
-		this.setState({ country: "", countryCode: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
+		this.props.addTravel(country, countryCode, city, date);
+		this.setState({ country: "", countryCode: "", city: "", date: "" });
 	}
 	
 	handleChange = (event) => {  
@@ -59,14 +52,6 @@ class AddTravel extends Component {
 				<div>
 					<label>Date: </label>
 					<textarea name="date" value={this.state.date} onChange={ e => this.handleChange(e) } />
-				</div>
-				<div>
-					<label>Transportation: </label>
-					<textarea name="transportation" value={this.state.transportation} onChange={ e => this.handleChange(e) } />
-				</div>
-				<div>
-					<label>Picture: </label>
-					<textarea name="picture" value={this.state.picture} onChange={ e => this.handleChange(e) } />
 				</div>
 				
 				<input type="submit" value="Submit" />

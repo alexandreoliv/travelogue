@@ -61,7 +61,7 @@ class Map extends Component {
 				const cCode = mapElement.features[0].properties.ADM0_A3_IS; // Grab the country code from the map properties.
 			
 				fetch(`https://restcountries.eu/rest/v2/alpha/${cCode}`) // Using tempalate tags to create the API request
-				  .then(data => data.json()) //fetch returns an object with a .json() method, which returns a promise
+				  .then(data => data.json()) // fetch returns an object with a .json() method, which returns a promise
 				  .then(country => {
 					// country contains the data from the API request
 					// Let's build our HTML in a template tag

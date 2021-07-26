@@ -8,11 +8,6 @@ class AddTravel extends Component {
 		countryCode: "",
         city: "",
         date: "",
-        transportation: {
-            in: "",
-            out: ""
-        },
-        picture: ""
     }
 
 	handleFormSubmit = (event) => {
@@ -21,14 +16,12 @@ class AddTravel extends Component {
 		const countryCode = this.state.countryCode;
 		const city = this.state.city;
 		const date = this.state.date;
-		const transportation = this.state.transportation;
-		const picture = this.state.picture;
 
 		axios
-			.post('http://localhost:5005/api/travels', { country, countryCode, city, date, transportation, picture })
+			.post('http://localhost:5005/api/travels', { country, countryCode, city, date })
 			.then( () => {
 				// this.props.getData();
-				this.setState({ country: "", countryCode: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
+				this.setState({ country: "", countryCode: "", city: "", date: "" });
 			})
 			.catch( error => console.log(error) )
 	}
@@ -62,14 +55,6 @@ class AddTravel extends Component {
 				<div>
 					<label>Date: </label>
 					<textarea name="date" onChange={ e => this.handleChange(e) } />
-				</div>
-				<div>
-					<label>Transportation: </label>
-					<textarea name="transportation" onChange={ e => this.handleChange(e) } />
-				</div>
-				<div>
-					<label>Picture: </label>
-					<textarea name="picture" onChange={ e => this.handleChange(e) } />
 				</div>
 				
 				<input type="submit" value="Submit" />

@@ -58,11 +58,8 @@ class TravelDetails extends Component {
                         <p>Country: {travel[0].country}</p>
                         <p>Country code: {travel[0].countryCode}</p>
                         <p>City: {travel[0].city}</p>
-                        <p>Year: {travel[0].date}</p>
-                        {/* <p>{travel[0].transportation}</p> */}
-                        <img src={travel[0].picture} alt={travel[0].city} height="250px" />
+                        <p>Date: {travel[0].date}</p>
                         <button >Edit</button>
-                        {/* <button type="button">Delete</button> */}
                         <button onClick={ () => this.props.deleteTravel(`${travel[0]._id}`) }>Delete</button>
                     </div>
                 </div>
