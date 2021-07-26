@@ -11,6 +11,7 @@ class TravelList extends Component {
     
     componentDidMount() {
         console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE TravelList.js <<<<<<------")
+        console.log('this.props inside TravelList.js/componentDidMount(): ', this.props)
         // this.getAllTravels();
         // this.setState({
         //     travels: props.travels
@@ -21,6 +22,10 @@ class TravelList extends Component {
         console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE TravelList.js <<<<<<------")
         // if (prevProps !== this.props)
         //     this.getAllTravels();
+    }
+
+    deleteTravel = (id) => {
+        this.props.deleteTravel(id)
     }
 
     render() {
@@ -57,8 +62,15 @@ class TravelList extends Component {
                         />
                         <Route
                             exact path='/travels/:id'
-                            component={TravelDetails}
+                            render={(matchProps) => 
+                            <TravelDetails
+                                {...matchProps}
+                                {...this.props} />
+                            }
+                            
                         />
+                            {/* <TravelDetails travels={this.props.travels} /> */}
+                        {/* </Route> */}
                     </Switch>
                     {/* <Route
                         exact path='/travels/:id'

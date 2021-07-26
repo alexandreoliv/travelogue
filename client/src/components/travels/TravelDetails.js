@@ -1,57 +1,73 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 class TravelDetails extends Component {
-    state = { 
-        travel: null
-    }
+    // state = { 
+    //     travel: null
+    // }
     
-    getTravel = () => {
-        console.log("------>>>>>> I'M RUNNING getTravel() FROM INSIDE TravelDetails.js <<<<<<------")
-        console.log('this is this.props.match.params.id from inside TravelDetails/getTravel: ', this.props.match.params.id)
-        const travelId = this.props.match.params.id;
-        axios
-        .get(`http://localhost:5005/api/travels/${travelId}`)
-        .then(resp => {
-            console.log('resp from axios from inside TravelDetails/getTravel: ', resp);
-            this.setState({
-                travel: resp.data
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
+    // getTravel = () => {
+    //     console.log("------>>>>>> I'M RUNNING getTravel() FROM INSIDE TravelDetails.js <<<<<<------")
+    //     console.log('this is this.props.match.params.id from inside TravelDetails/getTravel: ', this.props.match.params.id)
+    //     const travelId = this.props.match.params.id;
+    //     axios
+    //     .get(`http://localhost:5005/api/travels/${travelId}`)
+    //     .then(resp => {
+    //         console.log('resp from axios from inside TravelDetails/getTravel: ', resp);
+    //         this.setState({
+    //             travel: resp.data
+    //         })
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    // }
 
-    componentDidMount() {
-        console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE TravelDetails.js <<<<<<------")
-        this.getTravel();
-    }
+    // componentDidMount() {
+    //     console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE TravelDetails.js <<<<<<------")
+    //     // this.props.getTravel();
+    //     console.log('this.props inside TravelDetails.js/componentDidMount(): ', this.props)
+    // }
 
-    componentDidUpdate(prevProps) {
-        console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE TravelDetails.js <<<<<<------")
-        if (prevProps !== this.props)
-            this.getTravel();
+    // componentDidUpdate(prevProps) {
+    //     console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE TravelDetails.js <<<<<<------")
+    //     // if (prevProps !== this.props)
+    //     //     this.props.getTravel();
+    // }
+
+    deleteTravel = (id) => {
+        console.log("------>>>>>> I'M RUNNING deleteTravel() FROM INSIDE TravelDetails.js <<<<<<------")
+		console.log("this is props inside TravelDetails.js/deleteTravel: ", this.props)
+        this.props.deleteTravel(id);
     }
 
     render() {
         console.log("------>>>>>> I'M RUNNING render() FROM INSIDE TravelDetails.js <<<<<<------")
-        const { travel } = this.state;
-        console.log('this.state.travel from inside TravelDetails/render: ', travel)
-        if (!travel) return <></>;
-        return (
-			<div>
-                <div key={travel._id} style={{border: "1px solid black", width: "50vw"}}>
-                    <p>Country: {travel.country}</p>
-                    <p>City: {travel.city}</p>
-                    <p>Year: {travel.date}</p>
-                    {/* <p>{travel.transportation}</p> */}
-                    <img src={travel.picture} alt={travel.city} height="250px" />
-                    <button type="submit">Edit</button>
-                    <button type="submit" onClick={this.deleteTravel}>Delete</button>
+        console.log('this.props inside TravelDetails.js/render(): ', this.props)
+        const { travels } = this.props;
+        
+        // if (!travels) return <></>;
+        // if (this.state.travel === null) return <></>;
+        console.log('this.state.travels from inside TravelDetails/render: ', travels)
+        const travel = travels.filter(travel => travel._id === this.props.match.params.id);
+        console.log('this is the travel we are going to work with: ', travel);
+        if (travel.length > 0) {
+            return (
+                <div>
+                    <div key={travel[0]._id} style={{border: "1px solid black", width: "50vw"}}>
+                        <p>Country: {travel[0].country}</p>
+                        <p>Country code: {travel[0].countryCode}</p>
+                        <p>City: {travel[0].city}</p>
+                        <p>Year: {travel[0].date}</p>
+                        {/* <p>{travel[0].transportation}</p> */}
+                        <img src={travel[0].picture} alt={travel[0].city} height="250px" />
+                        <button >Edit</button>
+                        {/* <button type="button">Delete</button> */}
+                        <button onClick={ () => this.props.deleteTravel(`${travel[0]._id}`) }>Delete</button>
+                    </div>
                 </div>
-		    </div>
-		)
+            )
+        } else return <></>
 	}
 }
 

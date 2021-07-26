@@ -8,12 +8,14 @@ class Map extends Component {
     constructor(props) {
         console.log("------>>>>>> I'M RUNNING constructor() FROM INSIDE Map.js <<<<<<------")
         console.log('props from inside Map.js/constructor', props)
+        
         super(props);
+        this.codes = props.travels.map(travel => travel.countryCode);
         this.state = {
             lat: 13.4050,
             lng: 52.5200,
             zoom: 1,
-            countryCodes: props.countryCodes
+            countryCodes: this.codes
         };
         this.mapContainer = React.createRef();
     }

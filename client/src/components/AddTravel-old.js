@@ -16,7 +16,6 @@ class AddTravel extends Component {
     }
 
 	handleFormSubmit = (event) => {
-		console.log('this.props inside AddTravel.js/handleFormSubmit()', this.props)
 		event.preventDefault();
 		const country = this.state.country;
 		const countryCode = this.state.countryCode;
@@ -25,15 +24,13 @@ class AddTravel extends Component {
 		const transportation = this.state.transportation;
 		const picture = this.state.picture;
 
-		// axios
-		// 	.post('http://localhost:5005/api/travels', { country, countryCode, city, date, transportation, picture })
-		// 	.then( () => {
-		// 		// this.props.getData();
-		// 		this.setState({ country: "", countryCode: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
-		// 	})
-		// 	.catch( error => console.log(error) )
-		this.props.addTravel(country, countryCode, city, date, transportation, picture);
-		this.setState({ country: "", countryCode: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
+		axios
+			.post('http://localhost:5005/api/travels', { country, countryCode, city, date, transportation, picture })
+			.then( () => {
+				// this.props.getData();
+				this.setState({ country: "", countryCode: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
+			})
+			.catch( error => console.log(error) )
 	}
 	
 	handleChange = (event) => {  
