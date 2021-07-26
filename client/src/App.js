@@ -102,7 +102,10 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Map travels={this.state.travels} />
-				<AddTravel addTravel={this.addTravel} />
+				<AddTravel 
+					
+					addTravel={this.addTravel}
+				/>
 				<TravelList
 					travels={this.state.travels}
 					// countryCodes={this.state.countryCodes}

@@ -33,12 +33,12 @@ class TravelList extends Component {
         return (
             <div className="travel-list">
                 <div>
-                    <div>
+                    {/* <div> */}
                         {/* <AddTravel getData={() => this.getAllTravels()}/> */}
-                        <a href="/travels/new">
+                        {/* <a href="/travels/new">
                             <button type="submit">Add new travel</button>
-                        </a>
-                    </div>
+                        </a> */}
+                    {/* </div> */}
                     <div>
                     {this.props.travels.map(travel => {
                         return (

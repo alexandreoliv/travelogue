@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class AddTravel extends Component {
     state = { 
@@ -25,13 +24,6 @@ class AddTravel extends Component {
 		const transportation = this.state.transportation;
 		const picture = this.state.picture;
 
-		// axios
-		// 	.post('http://localhost:5005/api/travels', { country, countryCode, city, date, transportation, picture })
-		// 	.then( () => {
-		// 		// this.props.getData();
-		// 		this.setState({ country: "", countryCode: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
-		// 	})
-		// 	.catch( error => console.log(error) )
 		this.props.addTravel(country, countryCode, city, date, transportation, picture);
 		this.setState({ country: "", countryCode: "", city: "", date: "", transportation: {	in: "",	out: ""	},	picture: "" });
 	}
@@ -43,6 +35,8 @@ class AddTravel extends Component {
  
 	componentDidUpdate(prevProps) {
 		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE AddTravel.js <<<<<<------")
+		console.log('prevProps from inside AddTravel.js/componentDidUpdate: ', prevProps);
+		console.log('this.props from inside AddTravel.js/componentDidUpdate: ', this.props);
     }
 
 	render() {
@@ -52,27 +46,27 @@ class AddTravel extends Component {
 				<form onSubmit={this.handleFormSubmit}>
 				<div>
 					<label>Country: </label>
-					<input type="text" name="country" onChange={ e => this.handleChange(e) }/>
+					<input type="text" name="country" value={this.state.country} onChange={ e => this.handleChange(e) }/>
 				</div>
 				<div>
 					<label>Country code: </label>
-					<input type="text" name="countryCode" onChange={ e => this.handleChange(e) }/>
+					<input type="text" name="countryCode" value={this.state.countryCode} onChange={ e => this.handleChange(e) }/>
 				</div>
 				<div>
 					<label>City: </label>
-					<textarea name="city" onChange={ e => this.handleChange(e) } />
+					<textarea name="city" value={this.state.city} onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
 					<label>Date: </label>
-					<textarea name="date" onChange={ e => this.handleChange(e) } />
+					<textarea name="date" value={this.state.date} onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
 					<label>Transportation: </label>
-					<textarea name="transportation" onChange={ e => this.handleChange(e) } />
+					<textarea name="transportation" value={this.state.transportation} onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
 					<label>Picture: </label>
-					<textarea name="picture" onChange={ e => this.handleChange(e) } />
+					<textarea name="picture" value={this.state.picture} onChange={ e => this.handleChange(e) } />
 				</div>
 				
 				<input type="submit" value="Submit" />
