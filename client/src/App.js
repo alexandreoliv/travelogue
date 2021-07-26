@@ -74,7 +74,6 @@ class App extends Component {
             this.setState({
                 travels: this.state.travels.filter(travel => travel._id !== resp.data._id)
             })
-			console.log('this.state.travels from inside App.js/deleteTravel() right after a travel was deleted')
         })
         .catch(err => {
             console.log(err);
@@ -103,12 +102,10 @@ class App extends Component {
 			<div className="App">
 				<Map travels={this.state.travels} />
 				<AddTravel 
-					
 					addTravel={this.addTravel}
 				/>
 				<TravelList
 					travels={this.state.travels}
-					// countryCodes={this.state.countryCodes}
 					getAllTravels={this.getAllTravels}
 					deleteTravel={this.deleteTravel}
 				/>

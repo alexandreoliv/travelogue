@@ -22,7 +22,7 @@ class Map extends Component {
     
     getMap = () => {
         console.log("------>>>>>> I'M RUNNING getMap() FROM INSIDE Map.js <<<<<<------")
-		const { countryCodes } = this.state;
+        const countryCodes = this.props.travels.map(travel => travel.countryCode);
 		console.log('countryCodes inside Map.js/getMap: ', countryCodes);
 		const { lat, lng, zoom } = this.state;
 		const map = new mapboxgl.Map({
@@ -83,12 +83,16 @@ class Map extends Component {
 					  .addTo(map); // Add the popup to the map
 				  });
 			  });
-
 		});
 	}
 
     componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE Map.js <<<<<<------")
+		this.getMap();
+	}
+
+    componentDidUpdate() {
+		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE Map.js <<<<<<------")
 		this.getMap();
 	}
 
