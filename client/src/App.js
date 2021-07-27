@@ -8,18 +8,22 @@ import Map from './components/Map';
 import AddTravel from './components/travels/AddTravel';
 
 class App extends Component {
-	// constructor(props) {
-	// 	console.log("------>>>>>> I'M RUNNING constructor() FROM INSIDE App.js <<<<<<------")
-    //     super(props);
-    //     this.state = {
-    //         travels: [],
-    //         countryCodes: []
-    //     };
-    // }
 	state = {
             travels: [],
-            // countryCodes: []
+			countries: []
     };
+
+	getAllCountries = () => {
+		console.log("------>>>>>> I'M RUNNING getAllCountries() FROM INSIDE App.js <<<<<<------")
+        axios.get('https://restcountries.eu/rest/v2/all')
+        .then (response => {
+            this.setState({
+                countries: response.data
+            })
+            console.log('countries from inside app.js/getAllCountries: ', this.state.countries);
+        })
+        .catch(err => console.log(err));
+    }
 
 	getAllTravels = () => {
 		console.log("------>>>>>> I'M RUNNING getAllTravels() FROM INSIDE App.js <<<<<<------")
@@ -27,11 +31,9 @@ class App extends Component {
         .then (response => {
             this.setState({
                 travels: response.data,
-				// countryCodes: response.data.map(country => country.countryCode)
             })
 			if (this.state.travels.length === 0) return 0;
             console.log('travels from inside app.js/getAllTravels: ', this.state.travels);
-			// console.log('countryCodes from inside app.js/getAllTravels: ', this.state.countryCodes);
         })
         .catch(err => console.log(err));
     }
@@ -64,11 +66,9 @@ class App extends Component {
         // console.log('this is this.props.match.params.id from inside App.js/deleteTravel: ', this.props.match.params.id)
         // const travelId = this.props.match.params.id;
         axios
-        // .delete(`http://localhost:5005/api/travels/${travelId}`)
 		.delete(`http://localhost:5005/api/travels/${id}`)
         .then(resp => {
             console.log('resp from axios from inside App.js/deleteTravel: ', resp);
-			// code below doesn't work because it doesn't update this.state.countryCodes
             this.setState({
                 travels: this.state.travels.filter(travel => travel._id !== resp.data._id)
             })
@@ -76,12 +76,12 @@ class App extends Component {
         .catch(err => {
             console.log(err);
         })
-        // this.componentDidUpdate();
     }
 
 	componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE App.js <<<<<<------")
 		this.getAllTravels();
+		this.getAllCountries();
 	}
 
 	componentDidUpdate(prevProps) {
@@ -101,6 +101,7 @@ class App extends Component {
 				<Map travels={this.state.travels} />
 				<AddTravel 
 					addTravel={this.addTravel}
+					countries={this.state.countries}
 				/>
 				<TravelList
 					travels={this.state.travels}
