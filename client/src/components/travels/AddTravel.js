@@ -9,8 +9,8 @@ class AddTravel extends Component {
 			flag: ""
 		},
         city: "",
-        date: "",
-		visited: true
+        details: "",
+		visited: ""
     }
 
 	handleFormSubmit = (event) => {
@@ -24,11 +24,11 @@ class AddTravel extends Component {
 				flag: this.state.country.flag
 			};
 			const city = this.state.city;
-			const date = this.state.date;
+			const details = this.state.details;
 			const visited = this.state.visited;
 			
-			this.props.addTravel(country, city, date, visited);
-			this.setState({ country: { name: "", code: "", flag: "" }, city: "", date: "", visited: true });
+			this.props.addTravel(country, city, details, visited);
+			this.setState({ country: { name: "", code: "", flag: "" }, city: "", details: "", visited: "" });
 		}
 	}
 	
@@ -59,7 +59,7 @@ class AddTravel extends Component {
 				<form onSubmit={this.handleFormSubmit}>
 				<div>
 					<label>Country: </label>
-					<select name="code" value={this.state.country.code} onChange={ e => this.handleChange(e) }>
+					<select name="code" value={this.state.country.code} required onChange={ e => this.handleChange(e) }>
 						<option></option>
 						{this.props.countries.map(country => {
 							return (
@@ -70,17 +70,17 @@ class AddTravel extends Component {
 				</div>
 				<div>
 					<label>City: </label>
-					<textarea name="city" value={this.state.city} onChange={ e => this.handleChange(e) } />
+					<textarea name="city" value={this.state.city} required onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
-					<label>Date: </label>
-					<textarea name="date" value={this.state.date} onChange={ e => this.handleChange(e) } />
+					<label>Details: </label>
+					<textarea name="details" rows="4" cols="50" value={this.state.details} onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
-					<input type="radio" name="visited" value="true" checked onChange={ e => this.handleChange(e) } />
-  					<label>Already visited</label>
-					<input type="radio" name="visited" value="false" onChange={ e => this.handleChange(e) } />
-  					<label>On my plan to visit</label>
+					<input type="radio" id="visited" name="visited" value="true" required onChange={ e => this.handleChange(e) } />
+  					<label htmlFor="visited">Already visited</label>
+					<input type="radio" id="planned" name="visited" value="false" onChange={ e => this.handleChange(e) } />
+  					<label htmlFor="planned">On my plan to visit</label>
 				</div>
 				<input type="submit" value="Submit" />
 				</form>

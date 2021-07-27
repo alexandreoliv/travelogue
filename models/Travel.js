@@ -8,7 +8,7 @@ const travelSchema = new Schema({
 		flag: String
 	},
 	city: String,
-    date: Date,
+    details: String,
 	visited: Boolean
 });
 

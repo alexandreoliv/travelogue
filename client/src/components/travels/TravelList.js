@@ -5,17 +5,9 @@ import TravelDetails from './TravelDetails';
 import { Route, Switch } from 'react-router-dom';
 
 class TravelList extends Component {
-    // state = { 
-    //     travels: []
-    // }
-    
     componentDidMount() {
         console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE TravelList.js <<<<<<------")
         console.log('this.props inside TravelList.js/componentDidMount(): ', this.props)
-        // this.getAllTravels();
-        // this.setState({
-        //     travels: props.travels
-        // })
     }
 
     componentDidUpdate(prevProps) {
@@ -33,12 +25,6 @@ class TravelList extends Component {
         return (
             <div className="travel-list">
                 <div>
-                    {/* <div> */}
-                        {/* <AddTravel getData={() => this.getAllTravels()}/> */}
-                        {/* <a href="/travels/new">
-                            <button type="submit">Add new travel</button>
-                        </a> */}
-                    {/* </div> */}
                     <div>
                     {this.props.travels.map(travel => {
                         return (
@@ -48,7 +34,6 @@ class TravelList extends Component {
                                     to={`/travels/${travel._id}`}>
                                     <h3>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></h3>
                                 </Link>
-                                <p>Date: {travel.date}</p>
                                 <p>Visited? {travel.visited? 'Yes' : 'No'}</p>
                             </div>
                         )

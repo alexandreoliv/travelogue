@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import TravelList from './components/travels/TravelList';
-// import TravelDetails from './components/travels/TravelDetails';
-// import { Route } from 'react-router-dom';
 import axios from 'axios';
 import Map from './components/Map';
 import AddTravel from './components/travels/AddTravel';
@@ -38,7 +36,7 @@ class App extends Component {
         .catch(err => console.log(err));
     }
 
-	addTravel = (country, city, date, visited) => {
+	addTravel = (country, city, details, visited) => {
         console.log("------>>>>>> I'M RUNNING addTravel() FROM INSIDE App.js <<<<<<------")
 		console.log("this is props inside App.js/addTravel: ", this.props)
         axios({
@@ -47,7 +45,7 @@ class App extends Component {
 			data: {
 				country,
 				city,
-				date,
+				details,
 				visited
 			}
 		})			

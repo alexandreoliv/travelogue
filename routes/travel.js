@@ -5,12 +5,12 @@ const Travel = require('../models/Travel');
 
 // POST route => to create a new travel
 router.post('/api/travels', (req, res, next) => {
-    const { country, city, date, visited } = req.body;
+    const { country, city, details, visited } = req.body;
    
     Travel.create({
         country,
         city,
-        date,
+        details,
         visited
     })
       .then(response => res.json(response))
