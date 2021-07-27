@@ -55,8 +55,8 @@ class TravelDetails extends Component {
             return (
                 <div>
                     <div key={travel[0]._id} style={{border: "1px solid black", width: "50vw"}}>
-                        <p>Country: {travel[0].country}</p>
-                        <p>Country code: {travel[0].countryCode}</p>
+                        <p>Country: {travel[0].country.name}</p>
+                        <p>Country code: {travel[0].country.code}</p>
                         <p>City: {travel[0].city}</p>
                         <p>Date: {travel[0].date}</p>
                         <p>Visited? {travel[0].visited}</p>

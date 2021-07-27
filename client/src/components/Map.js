@@ -10,12 +10,11 @@ class Map extends Component {
         console.log('props from inside Map.js/constructor', props)
         
         super(props);
-        this.codes = props.travels.map(travel => travel.countryCode);
         this.state = {
             lat: 13.4050,
             lng: 52.5200,
             zoom: 1,
-            countryCodes: this.codes
+            countryCodes: props.travels.filter(country => country.visited).map(travel => travel.country.code)
         };
         this.mapContainer = React.createRef();
     }
@@ -23,7 +22,7 @@ class Map extends Component {
     getMap = () => {
         console.log("------>>>>>> I'M RUNNING getMap() FROM INSIDE Map.js <<<<<<------")
         // const countryCodes = this.props.travels.map(travel => travel.countryCode);
-		const countryCodes = this.props.travels.filter(country => country.visited).map(travel => travel.countryCode);
+		const countryCodes = this.props.travels.filter(country => country.visited).map(travel => travel.country.code);
 		console.log('countryCodes inside Map.js/getMap: ', countryCodes);
 		const { lat, lng, zoom } = this.state;
 		const map = new mapboxgl.Map({

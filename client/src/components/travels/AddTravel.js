@@ -3,41 +3,47 @@ import React, { Component } from 'react';
 class AddTravel extends Component {
     state = { 
         owner: "",
-        country: "",
-		countryCode: "",
-		flag: "",
+        country: {
+			name: "",
+			code: "",
+			flag: ""
+		},
         city: "",
         date: "",
 		visited: true
     }
 
 	handleFormSubmit = (event) => {
-		if (this.state.country) {
+		if (this.state.country.code) {
 			console.log('this.state.country inside handleFormSubmit: ', this.state.country)
 			console.log('this.props inside AddTravel.js/handleFormSubmit()', this.props)
 			event.preventDefault();
-			const country = this.state.country;
-			const countryCode = this.state.countryCode;
-			const flag = this.state.flag;
+			const country = {
+				name: this.state.country.name,
+				code: this.state.country.code,
+				flag: this.state.country.flag
+			};
 			const city = this.state.city;
 			const date = this.state.date;
 			const visited = this.state.visited;
 			
-			this.props.addTravel(country, countryCode, flag, city, date, visited);
-			this.setState({ country: "", countryCode: "", flag: "", city: "", date: "", visited: true });
+			this.props.addTravel(country, city, date, visited);
+			this.setState({ country: { name: "", code: "", flag: "" }, city: "", date: "", visited: true });
 		}
 	}
 	
 	handleChange = (event) => { 
 		const {name, value} = event.target;
 		console.log('type of event.target: ', event.target.name)
-		this.setState({[name]: value});
-		if (event.target.name === 'countryCode') {
+		if (event.target.name === 'code') {
 			this.setState({
-				country: this.props.countries.filter(country => country.alpha3Code === value).map(country => country.name)[0],
-				flag: 'https://flagcdn.com/16x12/' + this.props.countries.filter(country => country.alpha3Code === value).map(country => country.alpha2Code)[0].toLowerCase() + '.png'
+				country: {
+					code: value,
+					name: this.props.countries.filter(country => country.alpha3Code === value).map(country => country.name)[0],
+					flag: 'https://flagcdn.com/16x12/' + this.props.countries.filter(country => country.alpha3Code === value).map(country => country.alpha2Code)[0].toLowerCase() + '.png'
+				}
 			})
-		}
+		} else this.setState({[name]: value});
 	}
 
 	componentDidUpdate(prevProps) {
@@ -53,7 +59,7 @@ class AddTravel extends Component {
 				<form onSubmit={this.handleFormSubmit}>
 				<div>
 					<label>Country: </label>
-					<select name="countryCode" value={this.state.countryCode} onChange={ e => this.handleChange(e) }>
+					<select name="code" value={this.state.country.code} onChange={ e => this.handleChange(e) }>
 						<option></option>
 						{this.props.countries.map(country => {
 							return (
