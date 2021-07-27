@@ -9,7 +9,7 @@ class AddTravel extends Component {
 		flag: "",
         city: "",
         date: "",
-		visited: ""
+		visited: true
     }
 
 	handleFormSubmit = (event) => {
@@ -25,7 +25,7 @@ class AddTravel extends Component {
 			const visited = this.state.visited;
 			
 			this.props.addTravel(country, countryCode, flag, city, date, visited);
-			this.setState({ country: "", countryCode: "", flag: "", city: "", date: "", visited: "" });
+			this.setState({ country: "", countryCode: "", flag: "", city: "", date: "", visited: true });
 		}
 	}
 	
@@ -96,7 +96,7 @@ class AddTravel extends Component {
 					<textarea name="date" value={this.state.date} onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
-					<input type="radio" name="visited" value="true" onChange={ e => this.handleChange(e) } />
+					<input type="radio" name="visited" value="true" checked onChange={ e => this.handleChange(e) } />
   					<label>Already visited</label>
 					<input type="radio" name="visited" value="false" onChange={ e => this.handleChange(e) } />
   					<label>On my plan to visit</label>

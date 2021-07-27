@@ -22,7 +22,8 @@ class Map extends Component {
     
     getMap = () => {
         console.log("------>>>>>> I'M RUNNING getMap() FROM INSIDE Map.js <<<<<<------")
-        const countryCodes = this.props.travels.map(travel => travel.countryCode);
+        // const countryCodes = this.props.travels.map(travel => travel.countryCode);
+		const countryCodes = this.props.travels.filter(country => country.visited).map(travel => travel.countryCode);
 		console.log('countryCodes inside Map.js/getMap: ', countryCodes);
 		const { lat, lng, zoom } = this.state;
 		const map = new mapboxgl.Map({
