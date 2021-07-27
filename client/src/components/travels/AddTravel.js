@@ -33,35 +33,21 @@ class AddTravel extends Component {
 		const {name, value} = event.target;
 		console.log('type of event.target: ', event.target.name)
 		this.setState({[name]: value});
-		if (event.target.name === 'country') {
-			this.getCountryCode(value);
-			this.getCountryFlag(value);
-		}
+		if (event.target.name === 'countryCode')
+			this.getCountryDetails(value);
 	}
 
-	getCountryCode = (country) => {
-		console.log("------>>>>>> I'M RUNNING getCountryCode() FROM INSIDE AddTravel.js <<<<<<------")
+	getCountryDetails = (code) => {
+		console.log("------>>>>>> I'M RUNNING getCountryName() FROM INSIDE AddTravel.js <<<<<<------")
         axios
-			.get(`https://restcountries.eu/rest/v2/name/${country}`)
+			.get(`https://restcountries.eu/rest/v2/alpha/${code}`)
         	.then (response => {
-				console.log('axios response from getCountryCode: ', response.data[0].alpha3Code)
+				console.log('axios response from getCountryName: ', response.data.name)
             	this.setState({
-                	countryCode: response.data[0].alpha3Code
+                	country: response.data.name,
+					flag: 'https://flagcdn.com/16x12/' + response.data.alpha2Code.toLowerCase() + '.png'
             	})
         	})
-        	.catch(err => console.log(err));
-    }
-
-	getCountryFlag = (country) => {
-		console.log("------>>>>>> I'M RUNNING getCountryFlag() FROM INSIDE AddTravel.js <<<<<<------")
-        axios
-			.get(`https://restcountries.eu/rest/v2/name/${country}`)
-        	.then (response => {
-				console.log('axios response from getCountryFlag: ', response.data[0].alpha2Code)
-				this.setState({
-                	flag: 'https://flagcdn.com/16x12/' + response.data[0].alpha2Code.toLowerCase() + '.png'
-            	})
-			})
         	.catch(err => console.log(err));
     }
 
@@ -78,11 +64,11 @@ class AddTravel extends Component {
 				<form onSubmit={this.handleFormSubmit}>
 				<div>
 					<label>Country: </label>
-					<select name="country" value={this.state.country} onChange={ e => this.handleChange(e) }>
+					<select name="countryCode" value={this.state.countryCode} onChange={ e => this.handleChange(e) }>
 						<option></option>
 						{this.props.countries.map(country => {
 							return (
-							<option key={country.alpha3Code} value={country.name}>{country.name}</option>
+							<option key={country.alpha3Code} value={country.alpha3Code}>{country.name}</option>
 							)
 						})}
 					</select>
