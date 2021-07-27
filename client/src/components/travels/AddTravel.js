@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 class AddTravel extends Component {
     state = { 
@@ -29,27 +28,17 @@ class AddTravel extends Component {
 		}
 	}
 	
-	handleChange = (event) => {  
+	handleChange = (event) => { 
 		const {name, value} = event.target;
 		console.log('type of event.target: ', event.target.name)
 		this.setState({[name]: value});
-		if (event.target.name === 'countryCode')
-			this.getCountryDetails(value);
+		if (event.target.name === 'countryCode') {
+			this.setState({
+				country: this.props.countries.filter(country => country.alpha3Code === value).map(country => country.name)[0],
+				flag: 'https://flagcdn.com/16x12/' + this.props.countries.filter(country => country.alpha3Code === value).map(country => country.alpha2Code)[0].toLowerCase() + '.png'
+			})
+		}
 	}
-
-	getCountryDetails = (code) => {
-		console.log("------>>>>>> I'M RUNNING getCountryName() FROM INSIDE AddTravel.js <<<<<<------")
-        axios
-			.get(`https://restcountries.eu/rest/v2/alpha/${code}`)
-        	.then (response => {
-				console.log('axios response from getCountryName: ', response.data.name)
-            	this.setState({
-                	country: response.data.name,
-					flag: 'https://flagcdn.com/16x12/' + response.data.alpha2Code.toLowerCase() + '.png'
-            	})
-        	})
-        	.catch(err => console.log(err));
-    }
 
 	componentDidUpdate(prevProps) {
 		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE AddTravel.js <<<<<<------")
