@@ -6,8 +6,10 @@ class AddTravel extends Component {
         owner: "",
         country: "",
 		countryCode: "",
+		flag: "",
         city: "",
         date: "",
+		visited: ""
     }
 
 	handleFormSubmit = (event) => {
@@ -17,11 +19,13 @@ class AddTravel extends Component {
 			event.preventDefault();
 			const country = this.state.country;
 			const countryCode = this.state.countryCode;
+			const flag = this.state.flag;
 			const city = this.state.city;
 			const date = this.state.date;
-
-			this.props.addTravel(country, countryCode, city, date);
-			this.setState({ country: "", countryCode: "", city: "", date: "" });
+			const visited = this.state.visited;
+			
+			this.props.addTravel(country, countryCode, flag, city, date, visited);
+			this.setState({ country: "", countryCode: "", flag: "", city: "", date: "", visited: "" });
 		}
 	}
 	
@@ -31,6 +35,7 @@ class AddTravel extends Component {
 		this.setState({[name]: value});
 		if (event.target.name === 'country') {
 			this.getCountryCode(value);
+			this.getCountryFlag(value);
 		}
 	}
 
@@ -44,6 +49,19 @@ class AddTravel extends Component {
                 	countryCode: response.data[0].alpha3Code
             	})
         	})
+        	.catch(err => console.log(err));
+    }
+
+	getCountryFlag = (country) => {
+		console.log("------>>>>>> I'M RUNNING getCountryFlag() FROM INSIDE AddTravel.js <<<<<<------")
+        axios
+			.get(`https://restcountries.eu/rest/v2/name/${country}`)
+        	.then (response => {
+				console.log('axios response from getCountryFlag: ', response.data[0].alpha2Code)
+				this.setState({
+                	flag: 'https://flagcdn.com/16x12/' + response.data[0].alpha2Code.toLowerCase() + '.png'
+            	})
+			})
         	.catch(err => console.log(err));
     }
 
@@ -76,6 +94,12 @@ class AddTravel extends Component {
 				<div>
 					<label>Date: </label>
 					<textarea name="date" value={this.state.date} onChange={ e => this.handleChange(e) } />
+				</div>
+				<div>
+					<input type="radio" name="visited" value="true" onChange={ e => this.handleChange(e) } />
+  					<label>Already visited</label>
+					<input type="radio" name="visited" value="false" onChange={ e => this.handleChange(e) } />
+  					<label>On my plan to visit</label>
 				</div>
 				<input type="submit" value="Submit" />
 				</form>

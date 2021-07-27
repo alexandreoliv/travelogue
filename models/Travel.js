@@ -4,8 +4,10 @@ const travelSchema = new Schema({
 	owner: String,
 	country: String,
 	countryCode: String,
+	flag: String,
     city: String,
-    date: Date
+    date: Date,
+	visited: Boolean
 });
 
 const Travel = model("Travel", travelSchema);

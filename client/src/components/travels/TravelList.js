@@ -46,9 +46,10 @@ class TravelList extends Component {
                                 <Link 
                                     key={travel._id}
                                     to={`/travels/${travel._id}`}>
-                                    <h3>{travel.country} / {travel.city}</h3>
+                                    <h3>{travel.country} <img src={travel.flag} alt={travel.country} /></h3>
                                 </Link>
                                 <p>Date: {travel.date}</p>
+                                <p>Visited? {travel.visited? 'Yes' : 'No'}</p>
                             </div>
                         )
                     })}

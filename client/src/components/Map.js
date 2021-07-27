@@ -59,7 +59,6 @@ class Map extends Component {
 
 			map.on('click', 'countries', function(mapElement) {
 				const cCode = mapElement.features[0].properties.ADM0_A3_IS; // Grab the country code from the map properties.
-			
 				fetch(`https://restcountries.eu/rest/v2/alpha/${cCode}`) // Using tempalate tags to create the API request
 				  .then(data => data.json()) // fetch returns an object with a .json() method, which returns a promise
 				  .then(country => {
