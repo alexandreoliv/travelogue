@@ -1,6 +1,24 @@
 const router = require("express").Router();
 const mongoose = require('mongoose');
  
+// create a middleware to check if the user is logged in
+const loginCheck = () => {
+	return (req, res, next) => {
+		// is there a logged in user - using passport you can use req.isAuthenticated()
+		console.log('checking if authenticated');
+		if (req.isAuthenticated()) {
+			console.log('yes, authenticated');
+			// proceed as intended
+			next();
+		} else {
+			console.log('no, not authenticated');
+			// there is no user logged in
+			// we redirect to /login
+			res.redirect('http://localhost:5000/auth/facebook');
+		}
+  	}
+}
+
 const Travel = require('../models/Travel');
 
 // POST route => to create a new travel
@@ -45,6 +63,5 @@ router.delete('/api/travels/:travelId', (req, res, next) => {
 // 	// else
 // 		res.render('travels/new', { title: 'Add Your Location' })
 // });
-
 
 module.exports = router;
