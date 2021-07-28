@@ -14,7 +14,8 @@ const loginCheck = () => {
 			console.log('no, not authenticated');
 			// there is no user logged in
 			// we redirect to /login
-			res.redirect('http://localhost:5000/auth/facebook');
+			// res.redirect('/auth/facebook');
+			res.redirect('/api/travels');
 		}
   	}
 }
@@ -22,7 +23,7 @@ const loginCheck = () => {
 const Travel = require('../models/Travel');
 
 // POST route => to create a new travel
-router.post('/api/travels', (req, res, next) => {
+router.post('/api/travels', loginCheck(), (req, res, next) => {
     const { country, city, details, visited } = req.body;
    
     Travel.create({
@@ -36,21 +37,22 @@ router.post('/api/travels', (req, res, next) => {
 });
 
 // GET route => to get a specific travel
-router.get('/api/travels/:travelId', (req, res, next) => {
+router.get('/api/travels/:travelId', loginCheck(), (req, res, next) => {
     Travel.findById(req.params.travelId)
       .then(response => res.json(response))
       .catch(err => res.json(err));
 });
 
 // GET route => to get all the travels
-router.get('/api/travels', (req, res, next) => {
+router.get('/api/travels', loginCheck(), (req, res, next) => {
+	console.log('req.user', req.user);
     Travel.find()
       .then(response => res.json(response))
       .catch(err => res.json(err));
 });
 
 // GET route => to get a specific travel
-router.delete('/api/travels/:travelId', (req, res, next) => {
+router.delete('/api/travels/:travelId', loginCheck(), (req, res, next) => {
   Travel.findByIdAndDelete(req.params.travelId)
     .then(response => res.json(response))
     .catch(err => res.json(err));

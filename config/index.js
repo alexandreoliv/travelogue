@@ -20,12 +20,39 @@ module.exports = (app) => {
 	app.set("trust proxy", 1);
 
 	// controls a very specific header to pass headers from the frontend
+	// app.use(
+	// 	cors({
+	// 		credentials: true,
+	// 		origin: process.env.ORIGIN || "https://web.postman.co/" || "http://localhost:3000" || "https://www.facebook.com/" || "http://localhost:5000"
+	// 		})
+	// );
+
+	const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'https://web.postman.co/', 'https://www.facebook.com/']
 	app.use(
 		cors({
 			credentials: true,
-			origin: process.env.ORIGIN || "https://web.postman.co/" || "http://localhost:3000" || "https://www.facebook.com/" || "http://localhost:5000"
-			})
+			origin: function (origin, callback) {
+				if (whitelist.indexOf(origin) !== -1 || !origin) {
+					callback(null, true)
+				} else {
+					callback(new Error('Not allowed by CORS'))
+				}
+			}
+		})
 	);
+
+	// const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'https://web.postman.co/', 'https://www.facebook.com/']
+	// const corsOptions = {
+	// 	origin: function (origin, callback) {
+	// 		if (whitelist.indexOf(origin) !== -1 || !origin) {
+	// 			callback(null, true)
+	// 		} else {
+	// 			callback(new Error('Not allowed by CORS'))
+	// 		}
+	// 	}
+	//  }
+	
+	// app.use(cors(corsOptions));
 
 	// In development environment the app logs
 	app.use(logger("dev"));

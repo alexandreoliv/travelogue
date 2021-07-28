@@ -25,7 +25,7 @@ class App extends Component {
 
 	getAllTravels = () => {
 		console.log("------>>>>>> I'M RUNNING getAllTravels() FROM INSIDE App.js <<<<<<------")
-        axios.get('http://localhost:5000/api/travels')
+        axios.get('http://localhost:5000/api/travels', {withCredentials: true})
         .then (response => {
             this.setState({
                 travels: response.data,
@@ -41,13 +41,14 @@ class App extends Component {
 		console.log("this is props inside App.js/addTravel: ", this.props)
         axios({
 			method: 'post',
-			url: `http://localhost:5000/api/travels`,
+			url: 'http://localhost:5000/api/travels',
 			data: {
 				country,
 				city,
 				details,
 				visited
-			}
+			},
+			withCredentials: true
 		})			
         .then(resp => {
             console.log('resp from axios from inside App.js/addTravel: ', resp);
@@ -64,7 +65,7 @@ class App extends Component {
         // console.log('this is this.props.match.params.id from inside App.js/deleteTravel: ', this.props.match.params.id)
         // const travelId = this.props.match.params.id;
         axios
-		.delete(`http://localhost:5000/api/travels/${id}`)
+		.delete(`http://localhost:5000/api/travels/${id}`, {withCredentials: true})
         .then(resp => {
             console.log('resp from axios from inside App.js/deleteTravel: ', resp);
             this.setState({
