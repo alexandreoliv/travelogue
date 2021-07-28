@@ -1,15 +1,50 @@
 import React, { Component } from 'react';
 import './App.css';
-import TravelList from './components/travels/TravelList';
+import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
+import authService from './components/auth/auth-service';
 import Map from './components/Map';
+import Navbar from './components/Navbar';
+import Signup from './components/auth/Signup';
+import Login from './components/auth/Login';
+import TravelList from './components/travels/TravelList';
 import AddTravel from './components/travels/AddTravel';
+import TravelDetails from './components/travels/TravelDetails';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 class App extends Component {
 	state = {
-            travels: [],
-			countries: []
+		isLoggedIn: false,
+		user: null,
+		travels: [],
+		countries: []
     };
+
+	getTheUser = (userObj, loggedIn) => {
+		this.setState({
+			user: userObj,
+			isLoggedIn: loggedIn
+		});
+	};
+
+	fetchUser = () => {
+		if (this.state.user === null) {
+			authService
+				.loggedin()
+				.then(data => {
+					this.setState({
+						user: data,
+						isLoggedIn: true
+					});
+				})
+				.catch(err => {
+					this.setState({
+						user: null,
+						isLoggedIn: false
+					});
+				});
+		}
+	};
 
 	getAllCountries = () => {
 		console.log("------>>>>>> I'M RUNNING getAllCountries() FROM INSIDE App.js <<<<<<------")
@@ -39,23 +74,25 @@ class App extends Component {
 	addTravel = (country, city, details, visited) => {
         console.log("------>>>>>> I'M RUNNING addTravel() FROM INSIDE App.js <<<<<<------")
 		console.log("this is props inside App.js/addTravel: ", this.props)
-        axios({
-			method: 'post',
-			url: 'http://localhost:5000/api/travels',
-			data: {
-				country,
-				city,
-				details,
-				visited
-			},
-			withCredentials: true
-		})			
-        .then(resp => {
-            console.log('resp from axios from inside App.js/addTravel: ', resp);
-            this.getAllTravels();
-        })
-        .catch(err => {
-            console.log(err);
+        // axios({
+		// 	method: 'post',
+		// 	url: 'http://localhost:5000/api/travels',
+		// 	data: {
+		// 		country,
+		// 		city,
+		// 		details,
+		// 		visited
+		// 	},
+		// 	withCredentials: true
+		// })
+		axios
+			.post('http://localhost:5000/api/travels', { country, city, details, visited }, { withCredentials: true })			
+			.then(resp => {
+				console.log('resp from axios from inside App.js/addTravel: ', resp);
+				this.getAllTravels();
+			})
+			.catch(err => {
+				console.log(err);
         })
     }
 
@@ -65,7 +102,7 @@ class App extends Component {
         // console.log('this is this.props.match.params.id from inside App.js/deleteTravel: ', this.props.match.params.id)
         // const travelId = this.props.match.params.id;
         axios
-		.delete(`http://localhost:5000/api/travels/${id}`, {withCredentials: true})
+		.delete(`http://localhost:5000/api/travels/${id}`, { withCredentials: true })
         .then(resp => {
             console.log('resp from axios from inside App.js/deleteTravel: ', resp);
             this.setState({
@@ -79,6 +116,7 @@ class App extends Component {
 
 	componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE App.js <<<<<<------")
+		this.fetchUser();
 		this.getAllTravels();
 		this.getAllCountries();
 	}
@@ -97,10 +135,25 @@ class App extends Component {
 		}
 		return (
 			<div className="App">
-				<a href="http://localhost:5000/auth/facebook">Log in with Facebook</a>
-				<a href="http://localhost:5000/logout">Log out</a>
+				<Navbar userData={this.state.user} userIsLoggedIn={this.state.isLoggedIn} getUser={this.getTheUser} />
+				<Switch>
+					<Route exact path="/" render={props => <Login {...props} getUser={this.getTheUser} />} />
+					<Route exact path="/signup" render={props => <Signup {...props} getUser={this.getTheUser} />} />
+					<ProtectedRoute exact path="/travels"
+						component={TravelList}
+						travels={this.state.travels}
+						getAllTravels={this.getAllTravels}
+						deleteTravel={this.deleteTravel}
+					/>
+					<ProtectedRoute exact path="/travels/:id" render={props => <TravelDetails {...props} user={this.state.user} />} />
+					<Route exact path="/travels/new"
+						component={AddTravel}
+						addTravel={this.addTravel}
+						countries={this.state.countries}
+					/>
+				</Switch>
 				<Map travels={this.state.travels} />
-				<AddTravel 
+				{/* <AddTravel 
 					addTravel={this.addTravel}
 					countries={this.state.countries}
 				/>
@@ -108,11 +161,7 @@ class App extends Component {
 					travels={this.state.travels}
 					getAllTravels={this.getAllTravels}
 					deleteTravel={this.deleteTravel}
-				/>
-				{/* <Route
-					exact path='/travels/:id'
-					component={TravelDetails}
-        		/> */}
+				/> */}
 			</div>
 		)
 	}

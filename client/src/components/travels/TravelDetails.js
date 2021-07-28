@@ -8,6 +8,17 @@ class TravelDetails extends Component {
         this.props.deleteTravel(id);
     }
 
+    ownershipCheck = (project, travel) => {
+        const currentUserIsOwner = this.props.user && (project.owner === this.props.user._id);
+        if (currentUserIsOwner) {
+            return (
+                <div>
+                    <button onClick={ () => this.props.deleteTravel(`${travel[0]._id}`) }>Delete</button>
+                </div>
+            );
+        }
+    };
+
     render() {
         console.log("------>>>>>> I'M RUNNING render() FROM INSIDE TravelDetails.js <<<<<<------")
         console.log('this.props inside TravelDetails.js/render(): ', this.props)
@@ -28,6 +39,7 @@ class TravelDetails extends Component {
                         <p>Details: {travel[0].details}</p>
                         <p>Visited? {travel[0].visited}</p>
                         <button >Edit</button>
+                        <div> {this.ownershipCheck(this.state)} </div>
                         <button onClick={ () => this.props.deleteTravel(`${travel[0]._id}`) }>Delete</button>
                     </div>
                 </div>

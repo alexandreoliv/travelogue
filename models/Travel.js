@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
+const User = require('./User');
 
 const travelSchema = new Schema({
-	owner: String,
 	country: {
 		name: String,
 		code: String,
@@ -9,7 +9,8 @@ const travelSchema = new Schema({
 	},
 	city: String,
     details: String,
-	visited: Boolean
+	visited: Boolean,
+	owner: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 const Travel = model("Travel", travelSchema);

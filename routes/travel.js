@@ -1,50 +1,51 @@
 const router = require("express").Router();
 const mongoose = require('mongoose');
  
-// create a middleware to check if the user is logged in
-const loginCheck = () => {
-	return (req, res, next) => {
-		// is there a logged in user - using passport you can use req.isAuthenticated()
-		console.log('checking if authenticated');
-		if (req.isAuthenticated()) {
-			console.log('yes, authenticated');
-			// proceed as intended
-			next();
-		} else {
-			console.log('no, not authenticated');
-			// there is no user logged in
-			// we redirect to /login
-			// res.redirect('/auth/facebook');
-			res.redirect('/api/travels');
-		}
-  	}
-}
+// // create a middleware to check if the user is logged in
+// const loginCheck = () => {
+// 	return (req, res, next) => {
+// 		// is there a logged in user - using passport you can use req.isAuthenticated()
+// 		console.log('checking if authenticated');
+// 		if (req.isAuthenticated()) {
+// 			console.log('yes, authenticated');
+// 			// proceed as intended
+// 			next();
+// 		} else {
+// 			console.log('no, not authenticated');
+// 			// there is no user logged in
+// 			// we redirect to /login
+// 			// res.redirect('/auth/facebook');
+// 			res.redirect('/travels');
+// 		}
+//   	}
+// }
 
 const Travel = require('../models/Travel');
 
 // POST route => to create a new travel
-router.post('/api/travels', loginCheck(), (req, res, next) => {
+router.post('/travels', (req, res, next) => {
     const { country, city, details, visited } = req.body;
    
     Travel.create({
         country,
         city,
         details,
-        visited
+        visited,
+        owner: req.user._id
     })
       .then(response => res.json(response))
       .catch(err => res.json(err));
 });
 
 // GET route => to get a specific travel
-router.get('/api/travels/:travelId', loginCheck(), (req, res, next) => {
+router.get('/travels/:travelId', (req, res, next) => {
     Travel.findById(req.params.travelId)
       .then(response => res.json(response))
       .catch(err => res.json(err));
 });
 
 // GET route => to get all the travels
-router.get('/api/travels', loginCheck(), (req, res, next) => {
+router.get('/travels', (req, res, next) => {
 	console.log('req.user', req.user);
     Travel.find()
       .then(response => res.json(response))
@@ -52,7 +53,7 @@ router.get('/api/travels', loginCheck(), (req, res, next) => {
 });
 
 // GET route => to get a specific travel
-router.delete('/api/travels/:travelId', loginCheck(), (req, res, next) => {
+router.delete('/travels/:travelId', (req, res, next) => {
   Travel.findByIdAndDelete(req.params.travelId)
     .then(response => res.json(response))
     .catch(err => res.json(err));

@@ -14,45 +14,17 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 // Middleware configuration
-module.exports = (app) => {
+module.exports = app => {
   // Because this is a server that will accept requests from outside and it will be hosted ona server with a `proxy`, express needs to know that it should trust that setting.
   // Services like heroku use something called a proxy and you need to add this to your server
 	app.set("trust proxy", 1);
 
-	// controls a very specific header to pass headers from the frontend
-	// app.use(
-	// 	cors({
-	// 		credentials: true,
-	// 		origin: process.env.ORIGIN || "https://web.postman.co/" || "http://localhost:3000" || "https://www.facebook.com/" || "http://localhost:5000"
-	// 		})
-	// );
-
-	const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'https://web.postman.co/', 'https://www.facebook.com/']
 	app.use(
 		cors({
 			credentials: true,
-			origin: function (origin, callback) {
-				if (whitelist.indexOf(origin) !== -1 || !origin) {
-					callback(null, true)
-				} else {
-					callback(new Error('Not allowed by CORS'))
-				}
-			}
+			origin: ['http://localhost:3000', 'https://web.postman.co/', 'https://facebook.com/'] // <== this will be the URL of our React app (it will be running on port 3000)
 		})
 	);
-
-	// const whitelist = ['http://localhost:3000', 'http://localhost:5000', 'https://web.postman.co/', 'https://www.facebook.com/']
-	// const corsOptions = {
-	// 	origin: function (origin, callback) {
-	// 		if (whitelist.indexOf(origin) !== -1 || !origin) {
-	// 			callback(null, true)
-	// 		} else {
-	// 			callback(new Error('Not allowed by CORS'))
-	// 		}
-	// 	}
-	//  }
-	
-	// app.use(cors(corsOptions));
 
 	// In development environment the app logs
 	app.use(logger("dev"));

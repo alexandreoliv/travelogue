@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
 	<BrowserRouter>
+		{/* <a href="http://localhost:5000/auth/facebook">Log in with Facebook</a> */}
 		<App />
 	</BrowserRouter>,
 	document.getElementById('root')

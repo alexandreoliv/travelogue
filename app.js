@@ -15,6 +15,7 @@ require("./config")(app);
 
 // session configuration
 const session = require('express-session');
+require('./config/passport');
 const MongoStore = require('connect-mongo');
 const DB_URL = process.env.MONGODB_URI;
 
@@ -25,9 +26,9 @@ app.use(
 		cookie: { maxAge: 1000 * 60 * 60 * 24 },
 		saveUninitialized: false,
 		resave: true,
-		store: MongoStore.create({
-			mongoUrl: DB_URL
-		})
+		// store: MongoStore.create({
+		// 	mongoUrl: DB_URL
+		// })
 	})
 )
 // end of session configuration
@@ -36,22 +37,22 @@ app.use(
 const User = require("./models/User");
 const passport = require('passport');
 
-passport.serializeUser(function(user, done) {
-    console.log('user: ', user);
-    console.log('done: ', done);
-    done(null, user._id);
-});
+// passport.serializeUser(function(user, done) {
+//     console.log('user: ', user);
+//     console.log('done: ', done);
+//     done(null, user._id);
+// });
 
-passport.deserializeUser(function(id, done) {
-    User
-        .findById(id)
-        .then(userFromDB => {
-            done(null, userFromDB);
-        })
-        .catch(err => {
-            done(err);
-        })
-})
+// passport.deserializeUser(function(id, done) {
+//     User
+//         .findById(id)
+//         .then(userFromDB => {
+//             done(null, userFromDB);
+//         })
+//         .catch(err => {
+//             done(err);
+//         })
+// })
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -107,7 +108,10 @@ const allRoutes = require("./routes/index");
 app.use("/", allRoutes);
 
 const travelRouter = require("./routes/travel");
-app.use("/", travelRouter);
+app.use("/api", travelRouter);
+
+const authRouter = require('./routes/auth'); // <== has to be added
+app.use('/api', authRouter); // <== has to be added
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
