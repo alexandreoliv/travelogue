@@ -137,7 +137,7 @@ class App extends Component {
 			<div className="App">
 				<Navbar userData={this.state.user} userIsLoggedIn={this.state.isLoggedIn} getUser={this.getTheUser} />
 				<Switch>
-					<Route exact path="/" render={props => <Login {...props} getUser={this.getTheUser} />} />
+					<Route exact path="/login" render={props => <Login {...props} getUser={this.getTheUser} />} />
 					<Route exact path="/signup" render={props => <Signup {...props} getUser={this.getTheUser} />} />
 					<ProtectedRoute exact path="/travels"
 						component={TravelList}

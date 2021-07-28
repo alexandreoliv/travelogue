@@ -31,32 +31,29 @@ class Signup extends Component {
 		return(
 			<div>
 				<form onSubmit={this.handleFormSubmit}>
-				<label>
-				Username:
-					<input
+				<label htmlFor="username">Username: </label>
+				<input
+					id="username"
 					type="text"
 					name="username"
 					value={this.state.username}
 					onChange={this.handleChange}
-					/>
-				</label>
-		
-				<label>
-				Password:
-					<input
+				/>
+				<label htmlFor="password">Password: </label>
+				<input
+					id="password"
 					type="password"
 					name="password"
 					value={this.state.password}
 					onChange={this.handleChange}
-					/>
-				</label>
+				/>
 		
-				<button type="submit"> Signup </button>
+				<button type="submit">Sign Up</button>
 				</form>
 		
 				<p>
 				Already have an account?
-				<Link to={"/"}> Login</Link>
+				<Link to={"/login"}>Log in</Link>
 				</p>
 		
 			</div>

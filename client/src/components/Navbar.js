@@ -35,13 +35,13 @@ class Navbar extends Component {
                     <nav className="nav-style">
                         <ul>
                             <li>
-                                <Link to="/" style={{ textDecoration: 'none' }}>
-                                    Login
+                                <Link to="/login" style={{ textDecoration: 'none' }}>
+                                    Log In
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/signup" style={{ textDecoration: 'none' }}>
-                                    Signup
+                                    Sign Up
                                 </Link>
                             </li>
                         </ul>
