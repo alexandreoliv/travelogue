@@ -107,8 +107,8 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 const allRoutes = require("./routes/index");
 app.use("/", allRoutes);
 
-const travelRouter = require("./routes/travel");
-app.use("/api", travelRouter);
+const countryRouter = require("./routes/country");
+app.use("/api", countryRouter);
 
 const authRouter = require('./routes/auth'); // <== has to be added
 app.use('/api', authRouter); // <== has to be added

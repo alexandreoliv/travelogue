@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AddTravel from './AddTravel';
-import EditTravel from './EditTravel';
+import AddCountry from './AddCountry';
+import EditCountry from './EditCountry';
 import { Route, Switch } from 'react-router-dom';
-import './TravelList.css';
+import './CountryList.css';
 
-class TravelList extends Component {
+class CountryList extends Component {
     constructor(props) {
-        console.log("------>>>>>> I'M RUNNING constructor() FROM INSIDE TravelList.js <<<<<<------")
-        console.log('props from inside TravelList.js/constructor', props)
+        console.log("------>>>>>> I'M RUNNING constructor() FROM INSIDE CountryList.js <<<<<<------")
+        console.log('props from inside CountryList.js/constructor', props)
         
         super(props);
         this.state = {
 			user: props.user,
             // countryCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
 			// travels: props.travels
-			travels: props.getUserTravels(),
+			countries: props.getUserCountries(),
 			// visitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
 			// notVisitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && !travel.visited).map(travel => travel.country.code)
         };
-        console.log('info from TravelList.js/constructor: user = ', this.state.user)
-        console.log('info from TravelList.js/constructor: travels = ', this.props.travels)
+        console.log('info from CountryList.js/constructor: user = ', this.state.user)
+        console.log('info from CountryList.js/constructor: countries = ', this.props.countries)
     }
 
     // deleteTravel = (id) => {
@@ -30,18 +30,18 @@ class TravelList extends Component {
     // }
 
     componentDidMount() {
-        console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE TravelList.js <<<<<<------")
-        console.log('this.props inside TravelList.js/componentDidMount(): ', this.props)
+        console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE CountryList.js <<<<<<------")
+        console.log('this.props inside CountryList.js/componentDidMount(): ', this.props)
         this.setState({
-            travels: this.props.getUserTravels()
+            countries: this.props.getUserCountries()
         })
     }
 
     componentDidUpdate(prevProps) {
-        console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE TravelList.js <<<<<<------")
+        console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE CountryList.js <<<<<<------")
         if (prevProps !== this.props) {
             this.setState({
-                travels: this.props.travels
+                countries: this.props.countries
             })
         }
     }
@@ -56,44 +56,44 @@ class TravelList extends Component {
     // }
 
     render() {
-        if (!this.state.travels) {
-            console.log('from inside TravelList.js/render(): STILL NO TRAVELS IN THE STATE');
+        if (!this.state.countries) {
+            console.log('from inside CountryList.js/render(): STILL NO COUNTRIES IN THE STATE');
             return <></>
         }
-        console.log("------>>>>>> I'M RUNNING render() FROM INSIDE TravelList.js <<<<<<------")
+        console.log("------>>>>>> I'M RUNNING render() FROM INSIDE CountryList.js <<<<<<------")
         return (
-            <div className="travel-list">
+            <div className="country-list">
                 <div>
                     <div><h5>Already Visited:</h5>
-                    {this.state.travels.filter(travel => travel.visited).map(travel => {
+                    {this.state.countries.filter(country => country.visited).map(country => {
                         return (
-                            <div key={travel._id} style={{width: "20vw"}}>
+                            <div key={country._id} style={{width: "20vw"}}>
                                 {/* <Link 
                                     key={travel._id}
                                     to={`/travels/${travel._id}`}>
                                     <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
                                 </Link> */}
-                                <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
-                                <EditTravel
+                                <p>{country.country.name} <img src={country.country.flag} alt={country.country.name} /></p>
+                                <EditCountry
                                     user={this.state.user}
-                                    travel={travel}
-                                    deleteTravel={this.props.deleteTravel}
-                                    editTravel={this.props.editTravel}
+                                    country={country}
+                                    deleteCountry={this.props.deleteCountry}
+                                    editCountry={this.props.editCountry}
 								/>
                             </div>
                         )
                     })}
                     </div>
                     <div><h5>Future trips:</h5>
-                    {this.state.travels.filter(travel => !travel.visited).map(travel => {
+                    {this.state.countries.filter(country => !country.visited).map(country => {
                         return (
-                            <div key={travel._id} style={{width: "20vw"}}>
-                            <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
-                                <EditTravel
+                            <div key={country._id} style={{width: "20vw"}}>
+                            <p>{country.country.name} <img src={country.country.flag} alt={country.country.name} /></p>
+                                <EditCountry
                                     user={this.state.user}
-                                    travel={travel}
-                                    deleteTravel={this.props.deleteTravel}
-                                    editTravel={this.props.editTravel}
+                                    country={country}
+                                    deleteCountry={this.props.deleteCountry}
+                                    editCountry={this.props.editCountry}
 								/>
                                 {/* <p>Visited? {travel.visited? 'Yes' : 'No'}</p> */}
                             </div>
@@ -104,13 +104,13 @@ class TravelList extends Component {
                 <div>
                     <Switch>
                         <Route
-                            exact path='/travels/new'
-                            component={AddTravel}
+                            exact path='/countries/new'
+                            component={AddCountry}
                         />
                         <Route
-                            exact path='/travels/:id'
+                            exact path='/countries/:id'
                             render={(matchProps) => 
-                            <EditTravel
+                            <EditCountry
                                 {...matchProps}
                                 {...this.props} />
                             }
@@ -130,4 +130,4 @@ class TravelList extends Component {
 	}
 }
 
-export default TravelList;
+export default CountryList;

@@ -17,23 +17,23 @@ class Map extends Component {
 			user: props.user,
             // countryCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
 			// travels: props.travels
-			travels: props.getUserTravels(),
+			countries: props.getUserCountries(),
 			// visitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
 			// notVisitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && !travel.visited).map(travel => travel.country.code)
         };
-		console.log('Map.js/constructor this.state.travels: ', this.state.travels);
-		console.log('Map.js/constructor this.props.travels: ', this.props.travels);
+		console.log('Map.js/constructor this.state.countries: ', this.state.countries);
+		console.log('Map.js/constructor this.props.countries: ', this.props.countries);
         this.mapContainer = React.createRef();
     }
     
-	deleteTravel = (id) => {
-        this.props.deleteTravel(id)
+	deleteCountry = (id) => {
+        this.props.deleteCountry(id)
     }
 
-	getMap = (user, travels, deleteTravel) => {
+	getMap = (user, countries, deleteCountry) => {
         console.log("------>>>>>> I'M RUNNING getMap() FROM INSIDE Map.js <<<<<<------")
-		console.log('alex, those are the travels by this user: ', travels)
-        // const countryCodes = this.props.travels.map(travel => travel.countryCode);
+		console.log('alex, those are the countries by this user: ', countries)
+        // const countryCodes = this.props.countries.map(travel => travel.countryCode);
 		// const countryCodes = this.props.travels.filter(country => country.visited).map(travel => travel.country.code);
 		// console.log('visitedCodes inside Map.js/getMap: ', this.state.visitedCodes);
 		const { lat, lng, zoom } = this.state;
@@ -66,7 +66,7 @@ class Map extends Component {
 			map.setFilter(
 				'countriesVisited',
 				// ['in', 'ADM0_A3_IS'].concat(['USA', 'AUS', 'NGA']),
-				['in', 'ADM0_A3_IS'].concat(travels.filter(travel => travel.visited).map(travel => travel.country.code))
+				['in', 'ADM0_A3_IS'].concat(countries.filter(country => country.visited).map(country => country.country.code))
 			); // This line lets us filter by country codes.
 
 			map.on('click', 'countriesVisited', function(mapElement) {
@@ -81,7 +81,7 @@ class Map extends Component {
 						<img src='${country.flag}' height="50px"/> 
 						<ul>
 						<li><h3>${country.name}</h3></li>
-						<li><h2>${user.username} has visited ${travels.filter(travel => travel.country.code === country.alpha3Code).map(travel => travel.city)}</h2></li>
+						<li><h2>${user.username} has visited ${countries.filter(country => country.country.code === country.alpha3Code).map(country => country.city)}</h2></li>
 						<li><strong>Currencies:</strong> ${country.currencies
 							.map(c => c.code)
 							.join(', ')}</li>
@@ -119,7 +119,7 @@ class Map extends Component {
 			map.setFilter(
 				'countriesNotVisited',
 				// ['in', 'ADM0_A3_IS'].concat(['USA', 'AUS', 'NGA']),
-				['in', 'ADM0_A3_IS'].concat(travels.filter(travel => !travel.visited).map(travel => travel.country.code))
+				['in', 'ADM0_A3_IS'].concat(countries.filter(country => !country.visited).map(country => country.country.code))
 			); // This line lets us filter by country codes.
 
 			map.on('click', 'countriesNotVisited', function(mapElement) {
@@ -130,16 +130,16 @@ class Map extends Component {
 						// country contains the data from the API request
 						// Let's build our HTML in a template tag
 						const population = country.population.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-						const travelId = travels.filter(travel => travel.country.code === country.code);
+						const countryId = countries.filter(country => country.country.code === country.code);
 						const myFunction = () => {
-							deleteTravel({travelId})
+							deleteCountry({countryId})
 						};
 											
 						const html = ` 
 						<img src='${country.flag}' height="50px"/> 
 						<ul>
 						<li><h3>${country.name}</h3></li>
-						<li><h2>${user.username} plans to visit ${travels.filter(travel => travel.country.code === country.alpha3Code).map(travel => travel.city)}</h2></li>
+						<li><h2>${user.username} plans to visit ${countries.filter(country => country.country.code === country.alpha3Code).map(country => country.city)}</h2></li>
 						<li><strong>Currencies:</strong> ${country.currencies
 							.map(c => c.code)
 							.join(', ')}</li>
@@ -167,12 +167,12 @@ class Map extends Component {
 
     componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE Map.js <<<<<<------")
-		this.getMap(this.state.user, this.props.travels, this.deleteTravel);
+		this.getMap(this.state.user, this.props.countries, this.deleteCountry);
 	}
 
     componentDidUpdate() {
 		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE Map.js <<<<<<------")
-		this.getMap(this.state.user, this.props.travels, this.deleteTravel);
+		this.getMap(this.state.user, this.props.countries, this.deleteCountry);
 	}
 
     render() {

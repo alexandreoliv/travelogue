@@ -6,17 +6,17 @@ import authService from './components/auth/auth-service';
 import Navbar from './components/Navbar';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
-import TravelList from './components/travels/TravelList';
-import AddTravel from './components/travels/AddTravel';
-import EditTravel from './components/travels/EditTravel';
+import CountryList from './components/countries/CountryList';
+import AddCountry from './components/countries/AddCountry';
+import EditCountry from './components/countries/EditCountry';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 class App extends Component {
 	state = {
 		isLoggedIn: false,
 		user: null,
-		travels: [],
-		countries: []
+		countries: [],
+		allCountries: []
     };
 
 	getTheUser = (userObj, loggedIn) => {
@@ -50,43 +50,43 @@ class App extends Component {
         axios.get('https://restcountries.eu/rest/v2/all')
         .then (response => {
             this.setState({
-                countries: response.data
+                allCountries: response.data
             })
-            console.log('countries from inside app.js/getAllCountries: ', this.state.countries);
+            console.log('allCountries from inside app.js/getAllCountries: ', this.state.allCountries);
         })
         .catch(err => console.log(err));
     }
 
-	getAllTravels = () => {
-		console.log("------>>>>>> I'M RUNNING getAllTravels() FROM INSIDE App.js <<<<<<------")
-        axios.get('http://localhost:5000/api/travels', {withCredentials: true})
+	getAllUserCountries = () => {
+		console.log("------>>>>>> I'M RUNNING getAllUserCountries() FROM INSIDE App.js <<<<<<------")
+        axios.get('http://localhost:5000/api/countries', {withCredentials: true})
         .then (response => {
             this.setState({
-                travels: response.data,
+                countries: response.data,
             })
-			if (this.state.travels.length === 0) return 0;
-            console.log('travels from inside app.js/getAllTravels: ', this.state.travels);
+			if (this.state.countries.length === 0) return 0;
+            console.log('countries from inside app.js/getAllUserCountries: ', this.state.countries);
         })
         .catch(err => console.log(err));
     }
 
-	getUserTravels = () => {
-		console.log("------>>>>>> I'M RUNNING getUserTravels() FROM INSIDE App.js <<<<<<------")
-		console.log('this.state.user.user_id from inside App.js/getUserTravels: ', this.state.user)
-        axios.get('http://localhost:5000/api/travels/user', { withCredentials: true })
+	getUserCountries = () => {
+		console.log("------>>>>>> I'M RUNNING getUserCountries() FROM INSIDE App.js <<<<<<------")
+		console.log('this.state.user from inside App.js/getUserCountries: ', this.state.user)
+        axios.get('http://localhost:5000/api/countries/user', { withCredentials: true })
         .then (response => {
             this.setState({
-                travels: response.data,
+                countries: response.data,
             })
-			if (this.state.travels.length === 0) return 0;
-            console.log('travels from inside app.js/getUserTravels: ', this.state.travels);
+			if (this.state.countries.length === 0) return 0;
+            console.log('countries from inside app.js/getUserCountries: ', this.state.countries);
         })
         .catch(err => console.log(err));
     }
 
-	addTravel = (country, city, details, visited) => {
-        console.log("------>>>>>> I'M RUNNING addTravel() FROM INSIDE App.js <<<<<<------")
-		console.log("this is props inside App.js/addTravel: ", this.props)
+	addCountry = (country, city, details, visited) => {
+        console.log("------>>>>>> I'M RUNNING addCountry() FROM INSIDE App.js <<<<<<------")
+		console.log("this is props inside App.js/addCountry: ", this.props)
         // axios({
 		// 	method: 'post',
 		// 	url: 'http://localhost:5000/api/travels',
@@ -99,41 +99,41 @@ class App extends Component {
 		// 	withCredentials: true
 		// })
 		axios
-			.post('http://localhost:5000/api/travels', { country, city, details, visited }, { withCredentials: true })			
+			.post('http://localhost:5000/api/countries', { country, city, details, visited }, { withCredentials: true })			
 			.then(resp => {
-				console.log('resp from axios from inside App.js/addTravel: ', resp);
-				this.getUserTravels();
+				console.log('resp from axios from inside App.js/addCountry: ', resp);
+				this.getUserCountries();
 			})
 			.catch(err => {
 				console.log(err);
         })
     }
 
-	editTravel = (id, city, details, visited) => {
-        console.log("------>>>>>> I'M RUNNING editTravel() FROM INSIDE App.js <<<<<<------")
-		console.log("this is props inside App.js/editTravel: ", this.props)
+	editCountry = (id, city, details, visited) => {
+        console.log("------>>>>>> I'M RUNNING editCountry() FROM INSIDE App.js <<<<<<------")
+		console.log("this is props inside App.js/editCountry: ", this.props)
         axios
-			.put('http://localhost:5000/api/travels', { id, city, details, visited }, { withCredentials: true })			
+			.put('http://localhost:5000/api/countries', { id, city, details, visited }, { withCredentials: true })			
 			.then(resp => {
-				console.log('resp from axios from inside App.js/editTravel: ', resp);
-				this.getUserTravels();
+				console.log('resp from axios from inside App.js/editCountry: ', resp);
+				this.getUserCountries();
 			})
 			.catch(err => {
 				console.log(err);
         })
     }
 
-	deleteTravel = (id) => {
-        console.log("------>>>>>> I'M RUNNING deleteTravel() FROM INSIDE App.js <<<<<<------")
-		console.log("this is props inside App.js/deleteTravel: ", this.props)
-        // console.log('this is this.props.match.params.id from inside App.js/deleteTravel: ', this.props.match.params.id)
-        // const travelId = this.props.match.params.id;
+	deleteCountry = (id) => {
+        console.log("------>>>>>> I'M RUNNING deleteCountry() FROM INSIDE App.js <<<<<<------")
+		console.log("this is props inside App.js/deleteCountry: ", this.props)
+        // console.log('this is this.props.match.params.id from inside App.js/deleteCountry: ', this.props.match.params.id)
+        // const countryId = this.props.match.params.id;
         axios
-		.delete(`http://localhost:5000/api/travels/${id}`, { withCredentials: true })
+		.delete(`http://localhost:5000/api/countries/${id}`, { withCredentials: true })
         .then(resp => {
-            console.log('resp from axios from inside App.js/deleteTravel: ', resp);
+            console.log('resp from axios from inside App.js/deleteCountry: ', resp);
             this.setState({
-                travels: this.state.travels.filter(travel => travel._id !== resp.data._id)
+                countries: this.state.countries.filter(country => country._id !== resp.data._id)
             })
         })
         .catch(err => {
@@ -144,7 +144,7 @@ class App extends Component {
 	componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE App.js <<<<<<------")
 		this.fetchUser();
-		// this.getUserTravels();
+		// this.getUserCountries();
 		this.getAllCountries();
 	}
 
@@ -152,14 +152,14 @@ class App extends Component {
 		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE App.js <<<<<<------")
 		if (prevProps !== this.props) {
 			this.fetchUser();
-			// this.getUserTravels();
+			// this.getUserCountries();
 		}
 	}
 
 	render() {
 		console.log("------>>>>>> I'M RUNNING render() FROM INSIDE App.js <<<<<<------")
-		// if (this.state.travels.length === 0) {
-		// 	console.log('from inside app.js/render(): still no travels in the state, lets call getUserTravels from render');
+		// if (this.state.countries.length === 0) {
+		// 	console.log('from inside app.js/render(): still no countries in the state, lets call getUserCountries from render');
 		// 	return <></>;
 		// }
 		return (
@@ -168,38 +168,38 @@ class App extends Component {
 					userData={this.state.user}
 					userIsLoggedIn={this.state.isLoggedIn}
 					getUser={this.getTheUser}
-					travels={this.state.travels}
-					getUserTravels={this.getUserTravels}
 					countries={this.state.countries}
-					addTravel={this.addTravel}
-					deleteTravel={this.deleteTravel}
-					editTravel={this.editTravel}
+					getUserCountries={this.getUserCountries}
+					allCountries={this.state.allCountries}
+					addCountry={this.addCountry}
+					deleteCountry={this.deleteCountry}
+					editCountry={this.editCountry}
 				/>
 				<Switch>
 					<Route exact path="/login" render={props => <Login {...props} getUser={this.getTheUser} />} />
 					<Route exact path="/signup" render={props => <Signup {...props} getUser={this.getTheUser} />} />
-					<ProtectedRoute exact path="/travels"
-						component={TravelList}
-						travels={this.state.travels}
-						getUserTravels={this.getUserTravels}
-						deleteTravel={this.deleteTravel}
-					/>
-					<ProtectedRoute exact path="/travels/:id" render={props => <EditTravel {...props} user={this.state.user} />} />
-					<Route exact path="/travels/new"
-						component={AddTravel}
-						addTravel={this.addTravel}
+					<ProtectedRoute exact path="/countries"
+						component={CountryList}
 						countries={this.state.countries}
+						getUserCountries={this.getUserCountries}
+						deleteCountry={this.deleteCountry}
+					/>
+					<ProtectedRoute exact path="/countries/:id" render={props => <EditCountry {...props} user={this.state.user} />} />
+					<Route exact path="/countries/new"
+						component={AddCountry}
+						addCountry={this.addCountry}
+						allCountries={this.state.allCountries}
 					/>
 				</Switch>
-				{/* <Map user={this.state.user} travels={this.state.travels} /> */}
-				{/* <AddTravel 
-					addTravel={this.addTravel}
+				{/* <Map user={this.state.user} countries={this.state.countries} /> */}
+				{/* <AddCountry 
+					addCountry={this.addCountry}
 					countries={this.state.countries}
 				/>
-				<TravelList
-					travels={this.state.travels}
-					getAllTravels={this.getAllTravels}
-					deleteTravel={this.deleteTravel}
+				<CountyList
+					countries={this.state.countriess}
+					getAllCountries={this.getAllCountries}
+					deleteCountry={this.deleteCountry}
 				/> */}
 			</div>
 		)

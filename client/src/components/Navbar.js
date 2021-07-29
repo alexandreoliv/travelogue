@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import authService from './auth/auth-service';
 import Map from './Map';
-import AddTravel from './travels/AddTravel';
-import TravelList from './travels/TravelList';
+import AddCountry from './countries/AddCountry';
+import CountryList from './countries/CountryList';
 
 class Navbar extends Component {
     logoutUser = () => {
@@ -29,29 +29,29 @@ class Navbar extends Component {
                                 </Link>
                     </nav>
                     {/* Button trigger modal */}
-					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#addtravel">
-						Add Travel
+					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#addcountry">
+						Add Country
 					</button>
 					{/* Button trigger modal */}
-					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#edittravels">
-						Edit Travels
+					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editcountries">
+						Edit Countries
 					</button>
 
 					{/* Modal */}
-					<div className="modal fade" id="addtravel" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div className="modal fade" id="addcountry" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div className="modal-dialog" role="document">
 							<div className="modal-content" style={{width: '480px'}}>
 								<div className="modal-header">
-									<h5 className="modal-title" id="exampleModalLabel">Add Travel</h5>
+									<h5 className="modal-title" id="exampleModalLabel">Add Country</h5>
 									<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div className="modal-body">
-									<AddTravel
+									<AddCountry
 										user={userData}
-										countries={this.props.countries}
-										addTravel={this.props.addTravel}
+										allCountries={this.props.allCountries}
+										addCountry={this.props.addCountry}
 									/>
 								</div>
 								{/* <div className="modal-footer">
@@ -63,23 +63,23 @@ class Navbar extends Component {
 					</div>
 
 					{/* Modal */}
-					<div className="modal fade" id="edittravels" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div className="modal fade" id="editcountries" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div className="modal-dialog" role="document">
 							<div className="modal-content" style={{width: '480px'}}>
 								<div className="modal-header">
-									<h5 className="modal-title" id="exampleModalLabel">Edit Travels</h5>
+									<h5 className="modal-title" id="exampleModalLabel">Edit Countries</h5>
 									<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div className="modal-body">
-									<TravelList
+									<CountryList
 										user={userData}
+										allCountries={this.props.allCountries}
 										countries={this.props.countries}
-										travels={this.props.travels}
-										getUserTravels={this.props.getUserTravels}
-										deleteTravel={this.props.deleteTravel}
-										editTravel={this.props.editTravel}
+										getUserCountries={this.props.getUserCountries}
+										deleteCountry={this.props.deleteCountry}
+										editCountry={this.props.editCountry}
 									/>
 								</div>
 								{/* <div className="modal-footer">
@@ -92,9 +92,9 @@ class Navbar extends Component {
 
                     <Map
                         user={userData}
-                        travels={this.props.travels}
-                        getUserTravels={this.props.getUserTravels}
-                        deleteTravel={this.props.deleteTravel}
+                        countries={this.props.countries}
+                        getUserCountries={this.props.getUserCountries}
+                        deleteCountry={this.props.deleteCountry}
                     />
                     {/* <AddTravel
                         user={userData}

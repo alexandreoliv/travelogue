@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './AddTravel.css';
+import './AddCountry.css';
 
-class AddTravel extends Component {
+class AddCountry extends Component {
     state = { 
         owner: "",
         country: {
@@ -17,7 +17,7 @@ class AddTravel extends Component {
 	handleFormSubmit = (event) => {
 		if (this.state.country.code) {
 			console.log('this.state.country inside handleFormSubmit: ', this.state.country)
-			console.log('this.props inside AddTravel.js/handleFormSubmit()', this.props)
+			console.log('this.props inside AddCountry.js/handleFormSubmit()', this.props)
 			event.preventDefault();
 			const country = {
 				name: this.state.country.name,
@@ -30,7 +30,7 @@ class AddTravel extends Component {
 			const owner = this.props.user._id;
 			console.log('alex, this.props.user._id is: ', this.props.user._id)
 			
-			this.props.addTravel(country, city, details, visited, owner);
+			this.props.addCountry(country, city, details, visited, owner);
 			this.setState({ country: { name: "", code: "", flag: "" }, city: "", details: "", visited: "" });
 		}
 	}
@@ -42,29 +42,29 @@ class AddTravel extends Component {
 			this.setState({
 				country: {
 					code: value,
-					name: this.props.countries.filter(country => country.alpha3Code === value).map(country => country.name)[0],
-					flag: 'https://flagcdn.com/16x12/' + this.props.countries.filter(country => country.alpha3Code === value).map(country => country.alpha2Code)[0].toLowerCase() + '.png'
+					name: this.props.allCountries.filter(country => country.alpha3Code === value).map(country => country.name)[0],
+					flag: 'https://flagcdn.com/16x12/' + this.props.allCountries.filter(country => country.alpha3Code === value).map(country => country.alpha2Code)[0].toLowerCase() + '.png'
 				}
 			})
 		} else this.setState({[name]: value});
 	}
 
 	componentDidUpdate(prevProps) {
-		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE AddTravel.js <<<<<<------")
-		console.log('prevProps from inside AddTravel.js/componentDidUpdate: ', prevProps);
-		console.log('this.props from inside AddTravel.js/componentDidUpdate: ', this.props);
+		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE AddCountry.js <<<<<<------")
+		console.log('prevProps from inside AddCountry.js/componentDidUpdate: ', prevProps);
+		console.log('this.props from inside AddCountry.js/componentDidUpdate: ', this.props);
     }
 
 	render() {
-		console.log("------>>>>>> I'M RUNNING render() FROM INSIDE AddTravel.js <<<<<<------")
+		console.log("------>>>>>> I'M RUNNING render() FROM INSIDE AddCountry.js <<<<<<------")
         return (
-			<div className="add-travel">
+			<div className="add-country">
 				<form onSubmit={this.handleFormSubmit}>
 				<div>
 					<label>Country <span style={{color: 'red'}}>*</span></label>
 					<select name="code" value={this.state.country.code} required onChange={ e => this.handleChange(e) }>
 						<option></option>
-						{this.props.countries.map(country => {
+						{this.props.allCountries.map(country => {
 							return (
 							<option key={country.alpha3Code} value={country.alpha3Code}>{country.name}</option>
 							)
@@ -91,7 +91,7 @@ class AddTravel extends Component {
 				</div>
 				<div className="modal-footer">
 					<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="submit" className="btn btn-primary">Save travel</button>
+					<button type="submit" className="btn btn-primary">Save country</button>
 				</div>
 				</form>
 		  	</div>
@@ -99,4 +99,4 @@ class AddTravel extends Component {
 	}
 }
 
-export default AddTravel;
+export default AddCountry;

@@ -20,12 +20,12 @@ const mongoose = require('mongoose');
 //   	}
 // }
 
-const Travel = require('../models/Travel');
+const Country = require('../models/Country');
 
-// POST route => to edit a travel
-router.put('/travels', (req, res, next) => {
+// POST route => to edit a country
+router.put('/countries', (req, res, next) => {
 	const { id, city, details, visited } = req.body;
-	Travel
+	Country
 		.findByIdAndUpdate(id, {
 			city,
 			details,
@@ -35,11 +35,11 @@ router.put('/travels', (req, res, next) => {
 		.catch(err => res.json(err));
 });
 
-// POST route => to create a new travel
-router.post('/travels', (req, res, next) => {
+// POST route => to create a new country
+router.post('/countries', (req, res, next) => {
     const { country, city, details, visited } = req.body;
    
-    Travel.create({
+    Country.create({
         country,
         city,
         details,
@@ -50,32 +50,32 @@ router.post('/travels', (req, res, next) => {
       .catch(err => res.json(err));
 });
 
-// GET route => to get all the travels from the user
-router.get('/travels/user', (req, res, next) => {
+// GET route => to get all the countries from the user
+router.get('/countries/user', (req, res, next) => {
 	console.log('req.user', req.user);
-    Travel.find({ owner: req.user._id })
+    Country.find({ owner: req.user._id })
       .then(response => res.json(response))
       .catch(err => res.json(err));
 });
 
-// GET route => to get a specific travel
-router.get('/travels/:travelId', (req, res, next) => {
-    Travel.findById(req.params.travelId)
+// GET route => to get a specific country
+router.get('/countries/:countryId', (req, res, next) => {
+    Country.findById(req.params.countryId)
       .then(response => res.json(response))
       .catch(err => res.json(err));
 });
 
-// GET route => to get all the travels
-router.get('/travels', (req, res, next) => {
+// GET route => to get all the countries
+router.get('/countries', (req, res, next) => {
 	console.log('req.user', req.user);
-    Travel.find()
+    Country.find()
       .then(response => res.json(response))
       .catch(err => res.json(err));
 });
 
-// GET route => to get a specific travel
-router.delete('/travels/:travelId', (req, res, next) => {
-  Travel.findByIdAndDelete(req.params.travelId)
+// GET route => to get a specific country
+router.delete('/countries/:countryId', (req, res, next) => {
+  Country.findByIdAndDelete(req.params.countryId)
     .then(response => res.json(response))
     .catch(err => res.json(err));
 });
