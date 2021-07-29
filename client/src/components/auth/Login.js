@@ -27,26 +27,26 @@ class Login extends Component {
 		return (
 		<div>
 			<form onSubmit={this.handleFormSubmit}>
-				<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header border-bottom-0">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div className="modal-dialog modal-dialog-centered" role="document">
+						<div className="modal-content">
+							<div className="modal-header border-bottom-0">
+								<button type="button" className="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<div class="modal-body">
-								<div class="form-title text-center">
+							<div className="modal-body">
+								<div className="form-title text-center">
 									<h4>Log in</h4>
 								</div>
-								<div class="d-flex flex-column text-center">
-										<div class="form-group">
-											<input type="text" class="form-control" id="email1"placeholder="username" name="username" value={this.state.username} onChange={this.handleChange} />
+								<div className="d-flex flex-column text-center">
+										<div className="form-group">
+											<input type="text" className="form-control" id="email1"placeholder="username" name="username" value={this.state.username} onChange={this.handleChange} />
 										</div>
-										<div class="form-group">
-											<input type="password" class="form-control" id="password1" placeholder="password" name="password" value={this.state.password} onChange={this.handleChange} />
+										<div className="form-group">
+											<input type="password" className="form-control" id="password1" placeholder="password" name="password" value={this.state.password} onChange={this.handleChange} />
 										</div>
-										<button type="submit" class="btn btn-info btn-block btn-round" data-bs-dismiss="modal">Log in</button>
+										<button type="submit" className="btn btn-info btn-block btn-round" data-bs-dismiss="modal">Log in</button>
 								</div>
 							</div>
 						</div>

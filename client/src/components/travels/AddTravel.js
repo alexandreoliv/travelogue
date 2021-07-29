@@ -89,9 +89,9 @@ class AddTravel extends Component {
 						<label htmlFor="planned">Future trip <span style={{color: 'red'}}>*</span></label>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Save travel</button>
+				<div className="modal-footer">
+					<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" className="btn btn-primary">Save travel</button>
 				</div>
 				</form>
 		  	</div>

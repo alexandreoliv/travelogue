@@ -21,6 +21,8 @@ class Map extends Component {
 			// visitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
 			// notVisitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && !travel.visited).map(travel => travel.country.code)
         };
+		console.log('Map.js/constructor this.state.travels: ', this.state.travels);
+		console.log('Map.js/constructor this.props.travels: ', this.props.travels);
         this.mapContainer = React.createRef();
     }
     
@@ -33,7 +35,7 @@ class Map extends Component {
 		console.log('alex, those are the travels by this user: ', travels)
         // const countryCodes = this.props.travels.map(travel => travel.countryCode);
 		// const countryCodes = this.props.travels.filter(country => country.visited).map(travel => travel.country.code);
-		console.log('visitedCodes inside Map.js/getMap: ', this.state.visitedCodes);
+		// console.log('visitedCodes inside Map.js/getMap: ', this.state.visitedCodes);
 		const { lat, lng, zoom } = this.state;
 		const map = new mapboxgl.Map({
 		  	container: this.mapContainer.current,
@@ -148,7 +150,11 @@ class Map extends Component {
 						<li><strong>Population:</strong> ${population}</li>
 						<li><strong>Demonym:</strong> ${country.demonym}</li>
 						</ul>
-						<button onClick="${myFunction}">Delete</button>
+						<button id="btn-delete">Delete</button>
+						<script>
+						const delete = () => { document.getElementById("btn-delete").innerHTML = "You clicked the button"; }
+						document.getElementById("btn-delete").addEventListener("click", delete);
+						</script>
 						`; // Now we have a good looking popup HTML segment.
 						new mapboxgl.Popup() // Create a new popup
 						.setLngLat(mapElement.lngLat) // Set where we want it to appear (where we clicked)
