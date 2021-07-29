@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import authService from './auth/auth-service';
+import Map from './Map';
 
 class Navbar extends Component {
     logoutUser = () => {
@@ -13,21 +14,24 @@ class Navbar extends Component {
         const { userIsLoggedIn, userData } = this.props;
         if (userIsLoggedIn) {
             return (
-                <nav className="nav-style">
-                    <ul>
-                    {userIsLoggedIn && <li>Welcome, {userData.username} </li>}
-                        <li>
-                            <Link to="/travels" style={{ textDecoration: 'none' }}>
-                            Travels
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/">
-                                <button onClick={() => this.logoutUser()}>Logout</button>
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
+                <>
+                    <nav className="nav-style">
+                        <ul>
+                        {userIsLoggedIn && <li>Welcome, {userData.username} </li>}
+                            <li>
+                                <Link to="/travels" style={{ textDecoration: 'none' }}>
+                                Travels
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/">
+                                    <button onClick={() => this.logoutUser()}>Logout</button>
+                                </Link>
+                            </li>
+                        </ul>
+                    </nav>
+                    <Map user={userData} travels={this.props.travels} getUserTravels={this.props.getUserTravels}/>
+                </>
             );
         } else {
             return (

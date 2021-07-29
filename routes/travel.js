@@ -37,6 +37,14 @@ router.post('/travels', (req, res, next) => {
       .catch(err => res.json(err));
 });
 
+// GET route => to get all the travels from the user
+router.get('/travels/user', (req, res, next) => {
+	console.log('req.user', req.user);
+    Travel.find({ owner: req.user._id })
+      .then(response => res.json(response))
+      .catch(err => res.json(err));
+});
+
 // GET route => to get a specific travel
 router.get('/travels/:travelId', (req, res, next) => {
     Travel.findById(req.params.travelId)

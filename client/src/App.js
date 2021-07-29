@@ -71,6 +71,20 @@ class App extends Component {
         .catch(err => console.log(err));
     }
 
+	getUserTravels = () => {
+		console.log("------>>>>>> I'M RUNNING getUserTravels() FROM INSIDE App.js <<<<<<------")
+		console.log('this.state.user.user_id from inside App.js/getUserTravels: ', this.state.user)
+        axios.get('http://localhost:5000/api/travels/user', { withCredentials: true })
+        .then (response => {
+            this.setState({
+                travels: response.data,
+            })
+			if (this.state.travels.length === 0) return 0;
+            console.log('travels from inside app.js/getUserTravels: ', this.state.travels);
+        })
+        .catch(err => console.log(err));
+    }
+
 	addTravel = (country, city, details, visited) => {
         console.log("------>>>>>> I'M RUNNING addTravel() FROM INSIDE App.js <<<<<<------")
 		console.log("this is props inside App.js/addTravel: ", this.props)
@@ -89,7 +103,7 @@ class App extends Component {
 			.post('http://localhost:5000/api/travels', { country, city, details, visited }, { withCredentials: true })			
 			.then(resp => {
 				console.log('resp from axios from inside App.js/addTravel: ', resp);
-				this.getAllTravels();
+				this.getUserTravels();
 			})
 			.catch(err => {
 				console.log(err);
@@ -117,32 +131,34 @@ class App extends Component {
 	componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE App.js <<<<<<------")
 		this.fetchUser();
-		this.getAllTravels();
+		// this.getUserTravels();
 		this.getAllCountries();
 	}
 
 	componentDidUpdate(prevProps) {
 		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE App.js <<<<<<------")
-		if (prevProps !== this.props)
-            this.getAllTravels();
+		if (prevProps !== this.props) {
+			this.fetchUser();
+			// this.getUserTravels();
+		}
 	}
 
 	render() {
 		console.log("------>>>>>> I'M RUNNING render() FROM INSIDE App.js <<<<<<------")
-		if (this.state.travels.length === 0) {
-			console.log('from inside app.js/render(): still no travels in the state, lets call getAllTravels from render');
-			return <></>;
-		}
+		// if (this.state.travels.length === 0) {
+		// 	console.log('from inside app.js/render(): still no travels in the state, lets call getUserTravels from render');
+		// 	return <></>;
+		// }
 		return (
 			<div className="App">
-				<Navbar userData={this.state.user} userIsLoggedIn={this.state.isLoggedIn} getUser={this.getTheUser} />
+				<Navbar userData={this.state.user} userIsLoggedIn={this.state.isLoggedIn} getUser={this.getTheUser} travels={this.state.travels} getUserTravels={this.getUserTravels} />
 				<Switch>
 					<Route exact path="/login" render={props => <Login {...props} getUser={this.getTheUser} />} />
 					<Route exact path="/signup" render={props => <Signup {...props} getUser={this.getTheUser} />} />
 					<ProtectedRoute exact path="/travels"
 						component={TravelList}
 						travels={this.state.travels}
-						getAllTravels={this.getAllTravels}
+						getUserTravels={this.getUserTravels}
 						deleteTravel={this.deleteTravel}
 					/>
 					<ProtectedRoute exact path="/travels/:id" render={props => <TravelDetails {...props} user={this.state.user} />} />
@@ -152,7 +168,7 @@ class App extends Component {
 						countries={this.state.countries}
 					/>
 				</Switch>
-				<Map travels={this.state.travels} />
+				{/* <Map user={this.state.user} travels={this.state.travels} /> */}
 				{/* <AddTravel 
 					addTravel={this.addTravel}
 					countries={this.state.countries}

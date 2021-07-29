@@ -13,13 +13,15 @@ class Map extends Component {
         this.state = {
             lat: 13.4050,
             lng: 52.5200,
-            zoom: 1,
-            countryCodes: props.travels.filter(country => country.visited).map(travel => travel.country.code)
+            zoom: 1.5,
+			user: this.props.user,
+            countryCodes: props.travels.filter(travel => (travel.owner === this.props.user._id) && travel.visited).map(travel => travel.country.code),
+			travels: this.props.getUserTravels()
         };
         this.mapContainer = React.createRef();
     }
     
-    getMap = () => {
+    getMap = (userId) => {
         console.log("------>>>>>> I'M RUNNING getMap() FROM INSIDE Map.js <<<<<<------")
         // const countryCodes = this.props.travels.map(travel => travel.countryCode);
 		const countryCodes = this.props.travels.filter(country => country.visited).map(travel => travel.country.code);
@@ -68,6 +70,7 @@ class Map extends Component {
 					<img src='${country.flag}' height="50px"/> 
 					<ul>
 					  <li><h3>${country.name}</h3></li>
+					  <li><h2>${userId}</h2></li>
 					  <li><strong>Currencies:</strong> ${country.currencies
 						.map(c => c.code)
 						.join(', ')}</li>
@@ -87,12 +90,12 @@ class Map extends Component {
 
     componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE Map.js <<<<<<------")
-		this.getMap();
+		this.getMap(this.state.user._id);
 	}
 
     componentDidUpdate() {
 		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE Map.js <<<<<<------")
-		this.getMap();
+		this.getMap(this.state.user._id);
 	}
 
     render() {
