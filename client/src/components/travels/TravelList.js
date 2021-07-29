@@ -76,6 +76,7 @@ class TravelList extends Component {
                                     to={`/travels/${travel._id}`}>
                                     <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
                                 </Link>
+                                <button onClick={ () => this.deleteTravel(`${travel._id}`) }>Delete</button>
                                 {/* <p>Visited? {travel.visited? 'Yes' : 'No'}</p> */}
                             </div>
                         )
