@@ -15,11 +15,7 @@ class Map extends Component {
             lng: 52.5200,
             zoom: 1.5,
 			user: props.user,
-            // countryCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
-			// travels: props.travels
 			countries: props.getUserCountries(),
-			// visitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
-			// notVisitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && !travel.visited).map(travel => travel.country.code)
         };
 		console.log('Map.js/constructor this.state.countries: ', this.state.countries);
 		console.log('Map.js/constructor this.props.countries: ', this.props.countries);
@@ -33,9 +29,6 @@ class Map extends Component {
 	getMap = (user, countries, deleteCountry) => {
         console.log("------>>>>>> I'M RUNNING getMap() FROM INSIDE Map.js <<<<<<------")
 		console.log('alex, those are the countries by this user: ', countries)
-        // const countryCodes = this.props.countries.map(travel => travel.countryCode);
-		// const countryCodes = this.props.travels.filter(country => country.visited).map(travel => travel.country.code);
-		// console.log('visitedCodes inside Map.js/getMap: ', this.state.visitedCodes);
 		const { lat, lng, zoom } = this.state;
 		const map = new mapboxgl.Map({
 		  	container: this.mapContainer.current,
@@ -79,19 +72,16 @@ class Map extends Component {
 						const population = country.population.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 						const html = ` 
 						<img src='${country.flag}' height="50px"/> 
-						<ul>
-						<li><h3>${country.name}</h3></li>
-						<li><h2>${user.username} has visited ${countries.filter(country => country.country.code === country.alpha3Code).map(country => country.city)}</h2></li>
-						<li><strong>Currencies:</strong> ${country.currencies
+						<h3>${country.name}</h3>
+						<strong>Currencies:</strong> ${country.currencies
 							.map(c => c.code)
-							.join(', ')}</li>
-						<li><strong>Official languages:</strong> ${country.languages
+							.join(', ')}
+						<br><strong>Official languages:</strong> ${country.languages
 							.map(l => l.name)
-							.join(', ')}</li>
-						<li><strong>Capital:</strong> ${country.capital}</li>
-						<li><strong>Population:</strong> ${population}</li>
-						<li><strong>Demonym:</strong> ${country.demonym}</li>
-						</ul>
+							.join(', ')}
+						<br><strong>Capital:</strong> ${country.capital}
+						<br><strong>Population:</strong> ${population}
+						<br><strong>Demonym:</strong> ${country.demonym}
 						`; // Now we have a good looking popup HTML segment.
 						new mapboxgl.Popup() // Create a new popup
 						.setLngLat(mapElement.lngLat) // Set where we want it to appear (where we clicked)
@@ -130,31 +120,18 @@ class Map extends Component {
 						// country contains the data from the API request
 						// Let's build our HTML in a template tag
 						const population = country.population.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-						const countryId = countries.filter(country => country.country.code === country.code);
-						const myFunction = () => {
-							deleteCountry({countryId})
-						};
-											
 						const html = ` 
 						<img src='${country.flag}' height="50px"/> 
-						<ul>
-						<li><h3>${country.name}</h3></li>
-						<li><h2>${user.username} plans to visit ${countries.filter(country => country.country.code === country.alpha3Code).map(country => country.city)}</h2></li>
-						<li><strong>Currencies:</strong> ${country.currencies
+						<h3>${country.name}</h3>
+						<strong>Currencies:</strong> ${country.currencies
 							.map(c => c.code)
-							.join(', ')}</li>
-						<li><strong>Official languages:</strong> ${country.languages
+							.join(', ')}
+						<br><strong>Official languages:</strong> ${country.languages
 							.map(l => l.name)
-							.join(', ')}</li>
-						<li><strong>Capital:</strong> ${country.capital}</li>
-						<li><strong>Population:</strong> ${population}</li>
-						<li><strong>Demonym:</strong> ${country.demonym}</li>
-						</ul>
-						<button id="btn-delete">Delete</button>
-						<script>
-						const delete = () => { document.getElementById("btn-delete").innerHTML = "You clicked the button"; }
-						document.getElementById("btn-delete").addEventListener("click", delete);
-						</script>
+							.join(', ')}
+						<br><strong>Capital:</strong> ${country.capital}
+						<br><strong>Population:</strong> ${population}
+						<br><strong>Demonym:</strong> ${country.demonym}
 						`; // Now we have a good looking popup HTML segment.
 						new mapboxgl.Popup() // Create a new popup
 						.setLngLat(mapElement.lngLat) // Set where we want it to appear (where we clicked)
@@ -177,10 +154,6 @@ class Map extends Component {
 
     render() {
         console.log("------>>>>>> I'M RUNNING render() FROM INSIDE Map.js <<<<<<------")
-        // if (this.state.travels.length === 0) {
-        //     console.log('from inside maps.js/render(): STILL NO COUNTRYCODES IN THE STATE');
-        // }
-        // else console.log('from inside maps.js/render(): COUNTRYCODES IN THE STATE: ', this.state.travels );
         return (
             <div ref={this.mapContainer} className="map-container" />
         )

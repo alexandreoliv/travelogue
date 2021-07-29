@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import AddCountry from './AddCountry';
 import EditCountry from './EditCountry';
 import { Route, Switch } from 'react-router-dom';
-import './CountryList.css';
 
 class CountryList extends Component {
     constructor(props) {
@@ -13,21 +11,11 @@ class CountryList extends Component {
         super(props);
         this.state = {
 			user: props.user,
-            // countryCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
-			// travels: props.travels
 			countries: props.getUserCountries(),
-			// visitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
-			// notVisitedCodes: props.travels.filter(travel => (travel.owner === props.user._id) && !travel.visited).map(travel => travel.country.code)
         };
         console.log('info from CountryList.js/constructor: user = ', this.state.user)
         console.log('info from CountryList.js/constructor: countries = ', this.props.countries)
     }
-
-    // deleteTravel = (id) => {
-    //     console.log("------>>>>>> I'M RUNNING deleteTravel() FROM INSIDE EditTravel.js <<<<<<------")
-	// 	console.log("this is props inside EditTravel.js/deleteTravel: ", this.props)
-    //     this.props.deleteTravel(id);
-    // }
 
     componentDidMount() {
         console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE CountryList.js <<<<<<------")
@@ -46,15 +34,6 @@ class CountryList extends Component {
         }
     }
 
-    // setVisibility() {
-    //     const city = document.getElementById('city');
-    //     console.log(city);
-    //     if (city.style.visibility === 'hidden')
-    //         city.style.visibility = 'visible';
-    //     else
-    //         city.style.visibility = 'hidden';
-    // }
-
     render() {
         if (!this.state.countries) {
             console.log('from inside CountryList.js/render(): STILL NO COUNTRIES IN THE STATE');
@@ -68,11 +47,6 @@ class CountryList extends Component {
                     {this.state.countries.filter(country => country.visited).map(country => {
                         return (
                             <div key={country._id} style={{width: "20vw"}}>
-                                {/* <Link 
-                                    key={travel._id}
-                                    to={`/travels/${travel._id}`}>
-                                    <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
-                                </Link> */}
                                 <p>{country.country.name} <img src={country.country.flag} alt={country.country.name} /></p>
                                 <EditCountry
                                     user={this.state.user}
@@ -116,15 +90,8 @@ class CountryList extends Component {
                             }
                             
                         />
-                            {/* <TravelDetails travels={this.props.travels} /> */}
-                        {/* </Route> */}
                     </Switch>
-                    {/* <Route
-                        exact path='/travels/:id'
-                        component={TravelDetails}
-                    /> */}
                 </div>
-                {/* <div style={{width: '40%', float:"right"}}> */}
             </div>
 		)
 	}

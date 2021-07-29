@@ -19,14 +19,9 @@ class Navbar extends Component {
                 <>
                     <nav className="nav-style">
                         {userIsLoggedIn && <p>{userData.username}'s travelogue</p>}
-                            {/* <li>
-                                <Link to="/travels" style={{ textDecoration: 'none' }}>
-                                Travels
-                                </Link>
-                            </li> */}
-                                <Link to="/">
-									<button type="button" className="btn btn-primary" onClick={() => this.logoutUser()}>Log out</button>
-                                </Link>
+						<Link to="/">
+							<button type="button" className="btn btn-primary" onClick={() => this.logoutUser()}>Log out</button>
+						</Link>
                     </nav>
                     {/* Button trigger modal */}
 					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#addcountry">
@@ -54,10 +49,6 @@ class Navbar extends Component {
 										addCountry={this.props.addCountry}
 									/>
 								</div>
-								{/* <div className="modal-footer">
-									<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-									<button type="button" className="btn btn-primary">Save changes</button>
-								</div> */}
 							</div>
 						</div>
 					</div>
@@ -82,10 +73,6 @@ class Navbar extends Component {
 										editCountry={this.props.editCountry}
 									/>
 								</div>
-								{/* <div className="modal-footer">
-									<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-									<button type="button" className="btn btn-primary">Save changes</button>
-								</div> */}
 							</div>
 						</div>
 					</div>
@@ -96,11 +83,6 @@ class Navbar extends Component {
                         getUserCountries={this.props.getUserCountries}
                         deleteCountry={this.props.deleteCountry}
                     />
-                    {/* <AddTravel
-                        user={userData}
-                        countries={this.props.countries}
-                        addTravel={this.props.addTravel}
-                    /> */}
                 </>
             );
         } else {

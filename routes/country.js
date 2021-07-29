@@ -1,25 +1,6 @@
 const router = require("express").Router();
 const mongoose = require('mongoose');
  
-// // create a middleware to check if the user is logged in
-// const loginCheck = () => {
-// 	return (req, res, next) => {
-// 		// is there a logged in user - using passport you can use req.isAuthenticated()
-// 		console.log('checking if authenticated');
-// 		if (req.isAuthenticated()) {
-// 			console.log('yes, authenticated');
-// 			// proceed as intended
-// 			next();
-// 		} else {
-// 			console.log('no, not authenticated');
-// 			// there is no user logged in
-// 			// we redirect to /login
-// 			// res.redirect('/auth/facebook');
-// 			res.redirect('/travels');
-// 		}
-//   	}
-// }
-
 const Country = require('../models/Country');
 
 // POST route => to edit a country
@@ -79,13 +60,5 @@ router.delete('/countries/:countryId', (req, res, next) => {
     .then(response => res.json(response))
     .catch(err => res.json(err));
 });
-
-// router.get('/travels/new', (req, res, next) => {
-// 	console.log('----->>> GET /travels/new called');
-// 	// if (req.user.role === 'admin')
-// 	// 	res.render('travels/new', { api_key, admin: req.user, user: req.user, title: 'Add Your Location' });
-// 	// else
-// 		res.render('travels/new', { title: 'Add Your Location' })
-// });
 
 module.exports = router;

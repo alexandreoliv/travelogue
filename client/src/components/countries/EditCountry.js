@@ -28,7 +28,6 @@ class EditCountry extends Component {
         console.log('alex, this.props.user._id is: ', this.props.user._id)
         
         this.editCountry(id, city, details, visited);
-        // this.setState({ city: "", details: "", visited: "" });
 	}
 	
 	handleChange = (event) => { 
@@ -37,28 +36,13 @@ class EditCountry extends Component {
 		this.setState({[name]: value});
 	}
 
-    ownershipCheck = (project, country) => {
-        // const currentUserIsOwner = this.props.user && (project.owner === this.props.user._id);
-        // if (currentUserIsOwner) {
-        //     return (
-        //         <div>
-        //             <button onClick={ () => this.props.deleteTravel(`${travel[0]._id}`) }>Delete</button>
-        //         </div>
-        //     );
-        // }
-    };
-
     render() {
         console.log("------>>>>>> I'M RUNNING render() FROM INSIDE EditCountry.js <<<<<<------")
         console.log('this.props inside EditCountry.js/render(): ', this.props)
         const { country } = this.props;
         
-        // if (!travels) return <></>;
-        // if (this.state.travel === null) return <></>;
         console.log('this.state.countries from inside EditCountry/render: ', country)
-        // const country = travels.filter(travel => travel._id === this.props.match.params.id);
         console.log('this is the country we are going to work with: ', country);
-        // if (travel.length > 0) {
         if (country) {
             return (
                 <div className="add-country">

@@ -7,22 +7,7 @@ const mongoose = require('mongoose');
 
 const SALT_ROUNDS = 10;
 
-// require the user model !!!!
 const User = require('../models/User');
-
-// router.get('/auth/facebook', passport.authenticate('facebook'));
-// router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: `${process.env.FRONTEND_HOST}/error`}), (req, res) => {
-// 	// if (req.user) res.json(req.user);
-// 	// req.app.set('userId', res.req.user)
-// 	return res.redirect(`${process.env.FRONTEND_HOST}`);
-// });
-
-// router.get('/logout', (req, res, next) => {
-// 	console.log('user BEFORE log out: ' + req.user)
-// 	req.logout();
-// 	console.log('user AFTER log out: ' + req.user)
-// 	res.redirect(`${process.env.FRONTEND_HOST}`);
-// });
 
 router.post('/signup', (req, res, next) => {
 	const { username, password } = req.body;
@@ -44,11 +29,7 @@ router.post('/signup', (req, res, next) => {
 		.then(salt => bcryptjs.hash(password, salt))
 		.then(hashedPassword => {
 		return User.create({
-			// username: username
 			username,
-			// password => this is the key from the User model
-			//     ^
-			//     |            |--> this is placeholder (how we named returning value from the previous method (.hash()))
 			password: hashedPassword
 		});
 		})
