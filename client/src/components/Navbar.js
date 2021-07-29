@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import authService from './auth/auth-service';
 import Map from './Map';
+import AddTravel from './travels/AddTravel';
 
 class Navbar extends Component {
     logoutUser = () => {
@@ -30,7 +31,8 @@ class Navbar extends Component {
                             </li>
                         </ul>
                     </nav>
-                    <Map user={userData} travels={this.props.travels} getUserTravels={this.props.getUserTravels}/>
+                    <Map user={userData} travels={this.props.travels} getUserTravels={this.props.getUserTravels} />
+                    <AddTravel user={userData} countries={this.props.countries} addTravel={this.props.addTravel} />
                 </>
             );
         } else {

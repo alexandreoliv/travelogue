@@ -3,7 +3,6 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import authService from './components/auth/auth-service';
-import Map from './components/Map';
 import Navbar from './components/Navbar';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
@@ -151,7 +150,15 @@ class App extends Component {
 		// }
 		return (
 			<div className="App">
-				<Navbar userData={this.state.user} userIsLoggedIn={this.state.isLoggedIn} getUser={this.getTheUser} travels={this.state.travels} getUserTravels={this.getUserTravels} />
+				<Navbar
+					userData={this.state.user}
+					userIsLoggedIn={this.state.isLoggedIn}
+					getUser={this.getTheUser}
+					travels={this.state.travels}
+					getUserTravels={this.getUserTravels}
+					countries={this.state.countries}
+					addTravel={this.addTravel}
+				/>
 				<Switch>
 					<Route exact path="/login" render={props => <Login {...props} getUser={this.getTheUser} />} />
 					<Route exact path="/signup" render={props => <Signup {...props} getUser={this.getTheUser} />} />

@@ -26,8 +26,10 @@ class AddTravel extends Component {
 			const city = this.state.city;
 			const details = this.state.details;
 			const visited = this.state.visited;
+			const owner = this.props.user._id;
+			console.log('alex, this.props.user._id is: ', this.props.user._id)
 			
-			this.props.addTravel(country, city, details, visited);
+			this.props.addTravel(country, city, details, visited, owner);
 			this.setState({ country: { name: "", code: "", flag: "" }, city: "", details: "", visited: "" });
 		}
 	}
