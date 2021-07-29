@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AddTravel from './AddTravel';
-import TravelDetails from './TravelDetails';
+import EditTravel from './EditTravel';
 import { Route, Switch } from 'react-router-dom';
+import './TravelList.css';
 
 class TravelList extends Component {
     constructor(props) {
@@ -22,11 +23,11 @@ class TravelList extends Component {
         console.log('info from TravelList.js/constructor: travels = ', this.props.travels)
     }
 
-    deleteTravel = (id) => {
-        console.log("------>>>>>> I'M RUNNING deleteTravel() FROM INSIDE TravelDetails.js <<<<<<------")
-		console.log("this is props inside TravelDetails.js/deleteTravel: ", this.props)
-        this.props.deleteTravel(id);
-    }
+    // deleteTravel = (id) => {
+    //     console.log("------>>>>>> I'M RUNNING deleteTravel() FROM INSIDE EditTravel.js <<<<<<------")
+	// 	console.log("this is props inside EditTravel.js/deleteTravel: ", this.props)
+    //     this.props.deleteTravel(id);
+    // }
 
     componentDidMount() {
         console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE TravelList.js <<<<<<------")
@@ -45,6 +46,15 @@ class TravelList extends Component {
         }
     }
 
+    // setVisibility() {
+    //     const city = document.getElementById('city');
+    //     console.log(city);
+    //     if (city.style.visibility === 'hidden')
+    //         city.style.visibility = 'visible';
+    //     else
+    //         city.style.visibility = 'hidden';
+    // }
+
     render() {
         if (!this.state.travels) {
             console.log('from inside TravelList.js/render(): STILL NO TRAVELS IN THE STATE');
@@ -58,11 +68,18 @@ class TravelList extends Component {
                     {this.state.travels.filter(travel => travel.visited).map(travel => {
                         return (
                             <div key={travel._id} style={{width: "20vw"}}>
-                                <Link 
+                                {/* <Link 
                                     key={travel._id}
                                     to={`/travels/${travel._id}`}>
                                     <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
-                                </Link>
+                                </Link> */}
+                                <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
+                                <EditTravel
+                                    user={this.state.user}
+                                    travel={travel}
+                                    deleteTravel={this.props.deleteTravel}
+                                    editTravel={this.props.editTravel}
+								/>
                             </div>
                         )
                     })}
@@ -71,12 +88,13 @@ class TravelList extends Component {
                     {this.state.travels.filter(travel => !travel.visited).map(travel => {
                         return (
                             <div key={travel._id} style={{width: "20vw"}}>
-                                <Link 
-                                    key={travel._id}
-                                    to={`/travels/${travel._id}`}>
-                                    <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
-                                </Link>
-                                <button onClick={ () => this.deleteTravel(`${travel._id}`) }>Delete</button>
+                            <p>{travel.country.name} <img src={travel.country.flag} alt={travel.country.name} /></p>
+                                <EditTravel
+                                    user={this.state.user}
+                                    travel={travel}
+                                    deleteTravel={this.props.deleteTravel}
+                                    editTravel={this.props.editTravel}
+								/>
                                 {/* <p>Visited? {travel.visited? 'Yes' : 'No'}</p> */}
                             </div>
                         )
@@ -92,7 +110,7 @@ class TravelList extends Component {
                         <Route
                             exact path='/travels/:id'
                             render={(matchProps) => 
-                            <TravelDetails
+                            <EditTravel
                                 {...matchProps}
                                 {...this.props} />
                             }

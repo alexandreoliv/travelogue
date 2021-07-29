@@ -22,6 +22,19 @@ const mongoose = require('mongoose');
 
 const Travel = require('../models/Travel');
 
+// POST route => to edit a travel
+router.put('/travels', (req, res, next) => {
+	const { id, city, details, visited } = req.body;
+	Travel
+		.findByIdAndUpdate(id, {
+			city,
+			details,
+			visited 
+		})
+		.then(response => res.json(response))
+		.catch(err => res.json(err));
+});
+
 // POST route => to create a new travel
 router.post('/travels', (req, res, next) => {
     const { country, city, details, visited } = req.body;

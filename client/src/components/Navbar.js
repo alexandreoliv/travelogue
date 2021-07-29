@@ -79,6 +79,7 @@ class Navbar extends Component {
 										travels={this.props.travels}
 										getUserTravels={this.props.getUserTravels}
 										deleteTravel={this.props.deleteTravel}
+										editTravel={this.props.editTravel}
 									/>
 								</div>
 								{/* <div className="modal-footer">

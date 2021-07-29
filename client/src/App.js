@@ -8,7 +8,7 @@ import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import TravelList from './components/travels/TravelList';
 import AddTravel from './components/travels/AddTravel';
-import TravelDetails from './components/travels/TravelDetails';
+import EditTravel from './components/travels/EditTravel';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 class App extends Component {
@@ -109,6 +109,20 @@ class App extends Component {
         })
     }
 
+	editTravel = (id, city, details, visited) => {
+        console.log("------>>>>>> I'M RUNNING editTravel() FROM INSIDE App.js <<<<<<------")
+		console.log("this is props inside App.js/editTravel: ", this.props)
+        axios
+			.put('http://localhost:5000/api/travels', { id, city, details, visited }, { withCredentials: true })			
+			.then(resp => {
+				console.log('resp from axios from inside App.js/editTravel: ', resp);
+				this.getUserTravels();
+			})
+			.catch(err => {
+				console.log(err);
+        })
+    }
+
 	deleteTravel = (id) => {
         console.log("------>>>>>> I'M RUNNING deleteTravel() FROM INSIDE App.js <<<<<<------")
 		console.log("this is props inside App.js/deleteTravel: ", this.props)
@@ -159,6 +173,7 @@ class App extends Component {
 					countries={this.state.countries}
 					addTravel={this.addTravel}
 					deleteTravel={this.deleteTravel}
+					editTravel={this.editTravel}
 				/>
 				<Switch>
 					<Route exact path="/login" render={props => <Login {...props} getUser={this.getTheUser} />} />
@@ -169,7 +184,7 @@ class App extends Component {
 						getUserTravels={this.getUserTravels}
 						deleteTravel={this.deleteTravel}
 					/>
-					<ProtectedRoute exact path="/travels/:id" render={props => <TravelDetails {...props} user={this.state.user} />} />
+					<ProtectedRoute exact path="/travels/:id" render={props => <EditTravel {...props} user={this.state.user} />} />
 					<Route exact path="/travels/new"
 						component={AddTravel}
 						addTravel={this.addTravel}
