@@ -14,15 +14,16 @@ class Map extends Component {
             lat: 13.4050,
             lng: 52.5200,
             zoom: 1.5,
-			user: this.props.user,
-            countryCodes: props.travels.filter(travel => (travel.owner === this.props.user._id) && travel.visited).map(travel => travel.country.code),
-			travels: this.props.getUserTravels()
+			user: props.user,
+            countryCodes: props.travels.filter(travel => (travel.owner === props.user._id) && travel.visited).map(travel => travel.country.code),
+			travels: props.travels
         };
         this.mapContainer = React.createRef();
     }
     
-    getMap = (userId) => {
+    getMap = (user, travels) => {
         console.log("------>>>>>> I'M RUNNING getMap() FROM INSIDE Map.js <<<<<<------")
+		console.log('alex, those are the travels by this user: ', travels)
         // const countryCodes = this.props.travels.map(travel => travel.countryCode);
 		const countryCodes = this.props.travels.filter(country => country.visited).map(travel => travel.country.code);
 		console.log('countryCodes inside Map.js/getMap: ', countryCodes);
@@ -70,7 +71,8 @@ class Map extends Component {
 					<img src='${country.flag}' height="50px"/> 
 					<ul>
 					  <li><h3>${country.name}</h3></li>
-					  <li><h2>${userId}</h2></li>
+					  <li><h2>Visited by: ${user.username}</h2></li>
+					  <li><h2>Cities visited: ${travels.filter(travel => travel.country.code === country.alpha3Code).map(travel => travel.city)}</h2></li>
 					  <li><strong>Currencies:</strong> ${country.currencies
 						.map(c => c.code)
 						.join(', ')}</li>
@@ -90,12 +92,12 @@ class Map extends Component {
 
     componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE Map.js <<<<<<------")
-		this.getMap(this.state.user._id);
+		this.getMap(this.state.user, this.state.travels);
 	}
 
     componentDidUpdate() {
 		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE Map.js <<<<<<------")
-		this.getMap(this.state.user._id);
+		this.getMap(this.state.user, this.state.travels);
 	}
 
     render() {
