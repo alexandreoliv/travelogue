@@ -1,0 +1,16 @@
+.add-travel div {
+    padding-bottom: 10px;
+}
+
+.radio {
+    display: flex;
+    justify-content: center;
+}
+
+.radio div {
+    padding: 0 8px 0 8px;
+}
+
+.radio div input {
+    margin: 0 3px 0 0;
+}

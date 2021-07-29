@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './AddTravel.css';
 
 class AddTravel extends Component {
     state = { 
@@ -57,10 +58,10 @@ class AddTravel extends Component {
 	render() {
 		console.log("------>>>>>> I'M RUNNING render() FROM INSIDE AddTravel.js <<<<<<------")
         return (
-			<div>
+			<div className="add-travel">
 				<form onSubmit={this.handleFormSubmit}>
 				<div>
-					<label>Country: </label>
+					<label>Country <span style={{color: 'red'}}>*</span></label>
 					<select name="code" value={this.state.country.code} required onChange={ e => this.handleChange(e) }>
 						<option></option>
 						{this.props.countries.map(country => {
@@ -71,20 +72,27 @@ class AddTravel extends Component {
 					</select>
 				</div>
 				<div>
-					<label>City: </label>
-					<textarea name="city" value={this.state.city} required onChange={ e => this.handleChange(e) } />
+					<label>Cities <span style={{color: 'red'}}>*</span></label>
+					<textarea name="city" cols="40" value={this.state.city} required onChange={ e => this.handleChange(e) } />
 				</div>
 				<div>
 					<label>Details: </label>
-					<textarea name="details" rows="4" cols="50" value={this.state.details} onChange={ e => this.handleChange(e) } />
+					<textarea name="details" rows="4" cols="40" value={this.state.details} placeholder='How was it? How long did you stay? Any special memories?' onChange={ e => this.handleChange(e) } />
 				</div>
-				<div>
-					<input type="radio" id="visited" name="visited" value="true" required onChange={ e => this.handleChange(e) } />
-  					<label htmlFor="visited">Already visited</label>
-					<input type="radio" id="planned" name="visited" value="false" onChange={ e => this.handleChange(e) } />
-  					<label htmlFor="planned">On my plan to visit</label>
+				<div className="radio">
+					<div>
+						<input type="radio" id="visited" name="visited" value="true" required onChange={ e => this.handleChange(e) } />
+						<label htmlFor="visited">Already visited</label>
+					</div>
+					<div>
+						<input type="radio" id="planned" name="visited" value="false" onChange={ e => this.handleChange(e) } />
+						<label htmlFor="planned">Future trip <span style={{color: 'red'}}>*</span></label>
+					</div>
 				</div>
-				<input type="submit" value="Submit" />
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save travel</button>
+				</div>
 				</form>
 		  	</div>
 		)

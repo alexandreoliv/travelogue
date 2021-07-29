@@ -24,7 +24,11 @@ class Map extends Component {
         this.mapContainer = React.createRef();
     }
     
-    getMap = (user, travels) => {
+	deleteTravel = (id) => {
+        this.props.deleteTravel(id)
+    }
+
+	getMap = (user, travels, deleteTravel) => {
         console.log("------>>>>>> I'M RUNNING getMap() FROM INSIDE Map.js <<<<<<------")
 		console.log('alex, those are the travels by this user: ', travels)
         // const countryCodes = this.props.travels.map(travel => travel.countryCode);
@@ -124,6 +128,11 @@ class Map extends Component {
 						// country contains the data from the API request
 						// Let's build our HTML in a template tag
 						const population = country.population.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+						const travelId = travels.filter(travel => travel.country.code === country.code);
+						const myFunction = () => {
+							deleteTravel({travelId})
+						};
+											
 						const html = ` 
 						<img src='${country.flag}' height="50px"/> 
 						<ul>
@@ -139,6 +148,7 @@ class Map extends Component {
 						<li><strong>Population:</strong> ${population}</li>
 						<li><strong>Demonym:</strong> ${country.demonym}</li>
 						</ul>
+						<button onClick="${myFunction}">Delete</button>
 						`; // Now we have a good looking popup HTML segment.
 						new mapboxgl.Popup() // Create a new popup
 						.setLngLat(mapElement.lngLat) // Set where we want it to appear (where we clicked)
@@ -151,12 +161,12 @@ class Map extends Component {
 
     componentDidMount() {
 		console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE Map.js <<<<<<------")
-		this.getMap(this.state.user, this.props.travels);
+		this.getMap(this.state.user, this.props.travels, this.deleteTravel);
 	}
 
     componentDidUpdate() {
 		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE Map.js <<<<<<------")
-		this.getMap(this.state.user, this.props.travels);
+		this.getMap(this.state.user, this.props.travels, this.deleteTravel);
 	}
 
     render() {

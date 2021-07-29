@@ -158,6 +158,7 @@ class App extends Component {
 					getUserTravels={this.getUserTravels}
 					countries={this.state.countries}
 					addTravel={this.addTravel}
+					deleteTravel={this.deleteTravel}
 				/>
 				<Switch>
 					<Route exact path="/login" render={props => <Login {...props} getUser={this.getTheUser} />} />
