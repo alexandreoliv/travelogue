@@ -73,15 +73,15 @@ class Map extends Component {
 						const html = ` 
 						<img src='${country.flag}' height="50px"/> 
 						<h3>${country.name}</h3>
-						<strong>Currencies:</strong> ${country.currencies
-							.map(c => c.code)
-							.join(', ')}
+						<strong>Capital:</strong> ${country.capital}
+						<br><strong>Population:</strong> ${population}
+						<br><strong>Demonym:</strong> ${country.demonym}
 						<br><strong>Official languages:</strong> ${country.languages
 							.map(l => l.name)
 							.join(', ')}
-						<br><strong>Capital:</strong> ${country.capital}
-						<br><strong>Population:</strong> ${population}
-						<br><strong>Demonym:</strong> ${country.demonym}
+						<br><strong>Currency:</strong> ${country.currencies
+							.map(c => c.code)
+							.join(', ')}
 						`; // Now we have a good looking popup HTML segment.
 						new mapboxgl.Popup() // Create a new popup
 						.setLngLat(mapElement.lngLat) // Set where we want it to appear (where we clicked)
@@ -123,15 +123,15 @@ class Map extends Component {
 						const html = ` 
 						<img src='${country.flag}' height="50px"/> 
 						<h3>${country.name}</h3>
-						<strong>Currencies:</strong> ${country.currencies
-							.map(c => c.code)
-							.join(', ')}
+						<strong>Capital:</strong> ${country.capital}
+						<br><strong>Population:</strong> ${population}
+						<br><strong>Demonym:</strong> ${country.demonym}
 						<br><strong>Official languages:</strong> ${country.languages
 							.map(l => l.name)
 							.join(', ')}
-						<br><strong>Capital:</strong> ${country.capital}
-						<br><strong>Population:</strong> ${population}
-						<br><strong>Demonym:</strong> ${country.demonym}
+						<br><strong>Currency:</strong> ${country.currencies
+							.map(c => c.code)
+							.join(', ')}
 						`; // Now we have a good looking popup HTML segment.
 						new mapboxgl.Popup() // Create a new popup
 						.setLngLat(mapElement.lngLat) // Set where we want it to appear (where we clicked)
