@@ -30,7 +30,7 @@ class Signup extends Component {
 		return (
 		<div>
 			<form onSubmit={this.handleFormSubmit}>
-				<div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div className="modal fade" id="signupModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div className="modal-dialog modal-dialog-centered" role="document">
 						<div className="modal-content">
 							<div className="modal-header border-bottom-0">
@@ -44,10 +44,10 @@ class Signup extends Component {
 								</div>
 								<div className="d-flex flex-column text-center">
 										<div className="form-group">
-											<input type="text" className="form-control" id="email1"placeholder="username" name="username" value={this.state.username} onChange={this.handleChange} />
+											<input type="text" className="form-control" id="signup-username"placeholder="username" name="username" value={this.state.username} required onChange={this.handleChange} />
 										</div>
 										<div className="form-group">
-											<input type="password" className="form-control" id="password1" placeholder="password" name="password" value={this.state.password} onChange={this.handleChange} />
+											<input type="password" className="form-control" id="signup-password" placeholder="password" name="password" value={this.state.password} required onChange={this.handleChange} />
 										</div>
 										<button type="submit" className="btn btn-info btn-block btn-round">Sign up</button>
 								</div>

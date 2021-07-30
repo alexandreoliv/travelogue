@@ -41,10 +41,10 @@ class Login extends Component {
 								</div>
 								<div className="d-flex flex-column text-center">
 										<div className="form-group">
-											<input type="text" className="form-control" id="username1"placeholder="username" name="username" value={this.state.username} required onChange={this.handleChange} />
+											<input type="text" className="form-control" id="login-username" placeholder="username" name="username" value={this.state.username} required onChange={this.handleChange} />
 										</div>
 										<div className="form-group">
-											<input type="password" className="form-control" id="password1" placeholder="password" name="password" value={this.state.password} required onChange={this.handleChange} />
+											<input type="password" className="form-control" id="login-password" placeholder="password" name="password" value={this.state.password} required onChange={this.handleChange} />
 										</div>
 										<button type="submit" className="btn btn-info btn-block btn-round" data-bs-dismiss="modal">Log in</button>
 								</div>

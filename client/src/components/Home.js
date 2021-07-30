@@ -95,7 +95,7 @@ class Navbar extends Component {
 							</button>
 						</Link>
 						<Link to="/signup" style={{ textDecoration: 'none' }}>
-							<button type="button" className="btn btn-info" data-toggle="modal" data-target="#loginModal">
+							<button type="button" className="btn btn-info" data-toggle="modal" data-target="#signupModal">
 								Sign up
 							</button>
 						</Link>

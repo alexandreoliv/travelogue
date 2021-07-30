@@ -1,17 +1,20 @@
 const { Schema, model } = require("mongoose");
+const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new Schema({
-    facebookId: String,
-    name: String,
-    avatar: String,
-    username: String,
-    password: String,
-    role: {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user'
-    }
+	username: {
+		type: String,
+		unique: true
+	},
+	password: String,
+	role: {
+		type: String,
+		enum: ['user', 'admin'],
+		default: 'user'
+	}
 });
+
+userSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 
 const User = model("User", userSchema);
 
