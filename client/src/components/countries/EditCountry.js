@@ -47,31 +47,31 @@ class EditCountry extends Component {
             return (
                 <div className="add-country">
                     <form onSubmit={this.handleFormSubmit}>
-                    <div>
-                        <label>Cities <span style={{color: 'red'}}>*</span></label>
-                        <textarea name="city" cols="40" value={this.state.city} required onChange={ e => this.handleChange(e) } />
-                    </div>
-                    <div>
-                        <label>Details: </label>
-                        <textarea name="details" rows="4" cols="40" value={this.state.details} placeholder={this.props.placeholder} onChange={ e => this.handleChange(e) } />
-                    </div>
-                    <div className="radio">
                         <div>
-                            <input type="radio" id={'visited'.concat(country._id)} name="visited" value="true" defaultChecked={this.state.visited ? true : false} required onChange={ e => this.handleChange(e) } />
-                            <label htmlFor={'visited'.concat(country._id)}>Already visited</label>
+                            <label>Cities <span style={{color: 'red'}}>*</span></label>
+                            <textarea name="city" cols="40" value={this.state.city} required onChange={ e => this.handleChange(e) } />
                         </div>
                         <div>
-                            <input type="radio" id={'planned'.concat(country._id)} name="visited" value="false" defaultChecked={this.state.visited ? false : true} onChange={ e => this.handleChange(e) } />
-                            <label htmlFor={'planned'.concat(country._id)}>Future trip <span style={{color: 'red'}}>*</span></label>
+                            <label>Details: </label>
+                            <textarea name="details" rows="4" cols="40" value={this.state.details} placeholder={this.props.placeholder} onChange={ e => this.handleChange(e) } />
                         </div>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-secondary" onClick={ () => this.deleteCountry(`${country._id}`) }>Delete</button>
-                        <button type="submit" className="btn btn-primary">Save country</button>
-                    </div>
+                        <div className="radio">
+                            <div>
+                                <input type="radio" id={'visited'.concat(country._id)} name="visited" value="true" defaultChecked={this.state.visited ? true : false} required onChange={ e => this.handleChange(e) } />
+                                <label htmlFor={'visited'.concat(country._id)}>Already visited</label>
+                            </div>
+                            <div>
+                                <input type="radio" id={'planned'.concat(country._id)} name="visited" value="false" defaultChecked={this.state.visited ? false : true} onChange={ e => this.handleChange(e) } />
+                                <label htmlFor={'planned'.concat(country._id)}>Future trip <span style={{color: 'red'}}>*</span></label>
+                            </div>
+                        </div>
+                        <button type="button" className="btn btn-secondary" style={{margin: "0 5px 20px 5px", padding: "3px"}} onClick={ () => this.deleteCountry(`${country._id}`) }>Delete</button>
+                        <button type="submit" className="btn btn-primary" style={{margin: "0 5px 20px 5px", padding: "3px"}}>Save country</button>
+                        <div className="modal-footer">
+                            {/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button> */}
+                        </div>
                     </form>
-                  </div>
+                </div>
             )
         } else return <></>
 	}

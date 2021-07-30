@@ -50,7 +50,8 @@ class Map extends Component {
 				'source-layer': 'ne_10m_admin_0_countries-1c8n19', // <--- Add the source layer name you copied here
 				type: 'fill',
 				paint: {
-					'fill-color': '#C9F983', // this is the color you want your tileset to have (I used a nice purple color)
+					// 'fill-color': '#C9F983', // this is the color you want your tileset to have
+					'fill-color': '#62F6B6', // this is the color you want your tileset to have
 					'fill-opacity': 0.5,
 					// 'fill-outline-color': '#F2F2F2', // this helps us distinguish individual countries a bit better by giving them an outline
 				},
@@ -100,7 +101,7 @@ class Map extends Component {
 				'source-layer': 'ne_10m_admin_0_countries-1c8n19', // <--- Add the source layer name you copied here
 				type: 'fill',
 				paint: {
-					'fill-color': '#000000', // this is the color you want your tileset to have (I used a nice purple color)
+					'fill-color': '#ECF662', // this is the color you want your tileset to have (I used a nice purple color)
 					'fill-opacity': 0.5,
 					// 'fill-outline-color': '#F2F2F2', // this helps us distinguish individual countries a bit better by giving them an outline
 				},
