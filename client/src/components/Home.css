@@ -1,0 +1,31 @@
+.nav-style {
+    margin: 10px 20px 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-style-login {
+    height: 99vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../assets/background.jpg');
+}
+
+.nav-style-login:first-child div {
+    background-color: #f8f8ff;
+    opacity: 100%;
+    padding: 30px;
+}
+
+.nav-style-login button {
+    margin: 0 20px;
+}
+
+.nav-style-buttons {
+    margin-bottom: 10px;
+}
+
+.btn-countries {
+    margin: 0 20px;
+}

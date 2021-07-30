@@ -89,7 +89,7 @@ class AddCountry extends Component {
 						<label htmlFor="planned">Future trip <span style={{color: 'red'}}>*</span></label>
 					</div>
 				</div>
-				<div className="modal-footer">
+				<div className="div-btn">
 					<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
 					<button type="submit" className="btn btn-primary">Save country</button>
 				</div>

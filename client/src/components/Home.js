@@ -4,6 +4,7 @@ import authService from './auth/auth-service';
 import Map from './Map';
 import AddCountry from './countries/AddCountry';
 import CountryList from './countries/CountryList';
+import './Home.css';
 
 class Navbar extends Component {
     logoutUser = () => {
@@ -18,19 +19,21 @@ class Navbar extends Component {
             return (
                 <>
                     <nav className="nav-style">
-                        {userIsLoggedIn && <p>{userData.username}'s travelogue</p>}
-						<Link to="/">
-							<button type="button" className="btn btn-primary" onClick={() => this.logoutUser()}>Log out</button>
-						</Link>
+							{userIsLoggedIn && <p style={{fontWeight: "bold", color: "#137ff9"}}>{userData.username}'s travelogue</p>}
+							<div className="nav-style-buttons">
+								{/* Button trigger modal */}
+								<button type="button" className="btn btn-primary btn-countries" data-toggle="modal" data-target="#addcountry">
+									Add Country
+								</button>
+								{/* Button trigger modal */}
+								<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editcountries">
+									Edit Countries
+								</button>
+							</div>
+							<Link to="/">
+								<button type="button" className="btn btn-primary" onClick={() => this.logoutUser()}>Log out</button>
+							</Link>
                     </nav>
-                    {/* Button trigger modal */}
-					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#addcountry">
-						Add Country
-					</button>
-					{/* Button trigger modal */}
-					<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#editcountries">
-						Edit Countries
-					</button>
 
 					{/* Modal */}
 					<div className="modal fade" id="addcountry" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -88,17 +91,21 @@ class Navbar extends Component {
         } else {
             return (
                 <div>
-                    <nav className="nav-style">
-                        <Link to="/login" style={{ textDecoration: 'none' }}>
-							<button type="button" className="btn btn-info" data-toggle="modal" data-target="#loginModal">
-								Log in
-							</button>
-						</Link>
-						<Link to="/signup" style={{ textDecoration: 'none' }}>
-							<button type="button" className="btn btn-info" data-toggle="modal" data-target="#signupModal">
-								Sign up
-							</button>
-						</Link>
+                    <nav className="nav-style-login">
+						<div>
+							<h5>travelogue</h5>
+							<div><Link to="/login" style={{ textDecoration: 'none' }}>
+								<button type="button" className="btn btn-info" data-toggle="modal" data-target="#loginModal">
+									Log in
+								</button>
+							</Link>
+							<Link to="/signup" style={{ textDecoration: 'none' }}>
+								<button type="button" className="btn btn-info" data-toggle="modal" data-target="#signupModal">
+									Sign up
+								</button>
+							</Link>
+							</div>
+						</div>
                     </nav>
                 </div>
             );
