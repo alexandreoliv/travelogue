@@ -53,6 +53,7 @@ class CountryList extends Component {
                                     country={country}
                                     deleteCountry={this.props.deleteCountry}
                                     editCountry={this.props.editCountry}
+                                    placeholder='How was it? How long did you stay? Any special memories?'
 								/>
                             </div>
                         )
@@ -68,6 +69,7 @@ class CountryList extends Component {
                                     country={country}
                                     deleteCountry={this.props.deleteCountry}
                                     editCountry={this.props.editCountry}
+                                    placeholder='What are you plans?'
 								/>
                                 {/* <p>Visited? {travel.visited? 'Yes' : 'No'}</p> */}
                             </div>

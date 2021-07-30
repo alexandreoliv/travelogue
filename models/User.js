@@ -15,7 +15,5 @@ const userSchema = new Schema({
 });
 
 userSchema.plugin(uniqueValidator, {message: 'is already taken.'});
-
 const User = model("User", userSchema);
-
 module.exports = User;

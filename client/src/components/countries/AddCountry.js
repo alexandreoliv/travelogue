@@ -77,7 +77,7 @@ class AddCountry extends Component {
 				</div>
 				<div>
 					<label>Details: </label>
-					<textarea name="details" rows="4" cols="40" value={this.state.details} placeholder='How was it? How long did you stay? Any special memories?' onChange={ e => this.handleChange(e) } />
+					<textarea name="details" rows="4" cols="40" value={this.state.details} placeholder='How was it? How long did you stay? Any special memories? Or what are your plans for your future trip?' onChange={ e => this.handleChange(e) } />
 				</div>
 				<div className="radio">
 					<div>
