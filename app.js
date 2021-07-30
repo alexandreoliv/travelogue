@@ -39,9 +39,6 @@ app.use(passport.session());
 // end of passport config
 
 // start handling routes here
-const allRoutes = require("./routes/index");
-app.use("/", allRoutes);
-
 const countryRouter = require("./routes/country");
 app.use("/api", countryRouter);
 
