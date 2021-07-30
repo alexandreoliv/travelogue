@@ -9,14 +9,10 @@ class EditCountry extends Component {
     }
 
     deleteCountry = (id) => {
-        console.log("------>>>>>> I'M RUNNING deleteCountry() FROM INSIDE EditCountry.js <<<<<<------")
-		console.log("this is props inside EditCountry.js/deleteCountry: ", this.props)
         this.props.deleteCountry(id);
     }
 
     editCountry = (id, city, details, visited) => {
-        console.log("------>>>>>> I'M RUNNING editCountry() FROM INSIDE EditCountry.js <<<<<<------")
-		console.log("this is props inside EditCountry.js/editCountry: ", this.props)
         this.props.editCountry(id, city, details, visited);
     }
 
@@ -25,24 +21,16 @@ class EditCountry extends Component {
         const details = this.state.details;
         const visited = this.state.visited;
         const id = this.props.country._id;
-        console.log('alex, this.props.user._id is: ', this.props.user._id)
-        
         this.editCountry(id, city, details, visited);
 	}
 	
 	handleChange = (event) => { 
 		const {name, value} = event.target;
-		console.log('name of event.target: ', event.target.name)
 		this.setState({[name]: value});
 	}
 
     render() {
-        console.log("------>>>>>> I'M RUNNING render() FROM INSIDE EditCountry.js <<<<<<------")
-        console.log('this.props inside EditCountry.js/render(): ', this.props)
         const { country } = this.props;
-        
-        console.log('this.state.countries from inside EditCountry/render: ', country)
-        console.log('this is the country we are going to work with: ', country);
         if (country) {
             return (
                 <div className="add-country">
@@ -68,7 +56,6 @@ class EditCountry extends Component {
                         <button type="button" className="btn btn-secondary" style={{margin: "0 5px 20px 5px", padding: "3px"}} onClick={ () => this.deleteCountry(`${country._id}`) }>Delete</button>
                         <button type="submit" className="btn btn-primary" style={{margin: "0 5px 20px 5px", padding: "3px"}}>Save country</button>
                         <div className="modal-footer">
-                            {/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button> */}
                         </div>
                     </form>
                 </div>

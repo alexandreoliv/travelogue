@@ -3,22 +3,15 @@ import EditCountry from './EditCountry';
 
 class CountryList extends Component {
     constructor(props) {
-        console.log("------>>>>>> I'M RUNNING constructor() FROM INSIDE CountryList.js <<<<<<------")
-        console.log('props from inside CountryList.js/constructor', props)
-        
         super(props);
         this.state = {
 			user: props.user,
 			countries: props.getUserCountries(),
             details: false
         };
-        console.log('info from CountryList.js/constructor: user = ', this.state.user)
-        console.log('info from CountryList.js/constructor: countries = ', this.props.countries)
     }
 
     componentDidMount() {
-        console.log("------>>>>>> I'M RUNNING componentDidMount() FROM INSIDE CountryList.js <<<<<<------")
-        console.log('this.props inside CountryList.js/componentDidMount(): ', this.props)
         this.setState({
             countries: this.props.getUserCountries(),
             details: false
@@ -26,7 +19,6 @@ class CountryList extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE CountryList.js <<<<<<------")
         if (prevProps !== this.props) {
             this.setState({
                 countries: this.props.countries
@@ -41,11 +33,7 @@ class CountryList extends Component {
     }
 
     render() {
-        if (!this.state.countries) {
-            console.log('from inside CountryList.js/render(): STILL NO COUNTRIES IN THE STATE');
-            return <></>
-        }
-        console.log("------>>>>>> I'M RUNNING render() FROM INSIDE CountryList.js <<<<<<------")
+        if (!this.state.countries) return <></>
         return (
             <div className="country-list">
                 <div>

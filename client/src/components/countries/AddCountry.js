@@ -16,8 +16,6 @@ class AddCountry extends Component {
 
 	handleFormSubmit = (event) => {
 		if (this.state.country.code) {
-			console.log('this.state.country inside handleFormSubmit: ', this.state.country)
-			console.log('this.props inside AddCountry.js/handleFormSubmit()', this.props)
 			event.preventDefault();
 			const country = {
 				name: this.state.country.name,
@@ -28,7 +26,6 @@ class AddCountry extends Component {
 			const details = this.state.details;
 			const visited = this.state.visited;
 			const owner = this.props.user._id;
-			console.log('alex, this.props.user._id is: ', this.props.user._id)
 			
 			this.props.addCountry(country, city, details, visited, owner);
 			this.setState({ country: { name: "", code: "", flag: "" }, city: "", details: "", visited: "" });
@@ -37,7 +34,6 @@ class AddCountry extends Component {
 	
 	handleChange = (event) => { 
 		const {name, value} = event.target;
-		console.log('type of event.target: ', event.target.name)
 		if (event.target.name === 'code') {
 			this.setState({
 				country: {
@@ -49,14 +45,7 @@ class AddCountry extends Component {
 		} else this.setState({[name]: value});
 	}
 
-	componentDidUpdate(prevProps) {
-		console.log("------>>>>>> I'M RUNNING componentDidUpdate() FROM INSIDE AddCountry.js <<<<<<------")
-		console.log('prevProps from inside AddCountry.js/componentDidUpdate: ', prevProps);
-		console.log('this.props from inside AddCountry.js/componentDidUpdate: ', this.props);
-    }
-
 	render() {
-		console.log("------>>>>>> I'M RUNNING render() FROM INSIDE AddCountry.js <<<<<<------")
         return (
 			<div className="add-country">
 				<form onSubmit={this.handleFormSubmit}>

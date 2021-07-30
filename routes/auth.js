@@ -35,8 +35,8 @@ router.post('/signup', (req, res, next) => {
 		})
 		.then(userFromDB => {
 		console.log('Newly created user is: ', userFromDB);
-		// Send the user's information to the frontend
-		// We can use also: res.status(200).json(req.user);
+		// send the user's information to the frontend
+		// we can use also: res.status(200).json(req.user);
 		res.status(200).json(userFromDB);
 		})
 		.catch(error => {
@@ -73,7 +73,7 @@ router.post('/login', (req, res, next) => {
 				return;
 			}
 	
-			// We are now logged in (that's why we can also send req.user)
+			// we are now logged in (that's why we can also send req.user)
 			res.status(200).json(theUser);
 		});
 		})(req, res, next);

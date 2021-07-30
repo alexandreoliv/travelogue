@@ -1,20 +1,6 @@
 const router = require("express").Router();
 const mongoose = require('mongoose');
- 
 const Country = require('../models/Country');
-
-// POST route => to edit a country
-router.put('/countries', (req, res, next) => {
-	const { id, city, details, visited } = req.body;
-	Country
-		.findByIdAndUpdate(id, {
-			city,
-			details,
-			visited 
-		})
-		.then(response => res.json(response))
-		.catch(err => res.json(err));
-});
 
 // POST route => to create a new country
 router.post('/countries', (req, res, next) => {
@@ -39,13 +25,6 @@ router.get('/countries/user', (req, res, next) => {
       .catch(err => res.json(err));
 });
 
-// GET route => to get a specific country
-router.get('/countries/:countryId', (req, res, next) => {
-    Country.findById(req.params.countryId)
-      .then(response => res.json(response))
-      .catch(err => res.json(err));
-});
-
 // GET route => to get all the countries
 router.get('/countries', (req, res, next) => {
 	console.log('req.user', req.user);
@@ -54,11 +33,24 @@ router.get('/countries', (req, res, next) => {
       .catch(err => res.json(err));
 });
 
-// GET route => to get a specific country
+// DELETE route => to delete a specific country
 router.delete('/countries/:countryId', (req, res, next) => {
   Country.findByIdAndDelete(req.params.countryId)
     .then(response => res.json(response))
     .catch(err => res.json(err));
+});
+
+// PUT route => to edit a country
+router.put('/countries', (req, res, next) => {
+	const { id, city, details, visited } = req.body;
+	Country
+		.findByIdAndUpdate(id, {
+			city,
+			details,
+			visited 
+		})
+		.then(response => res.json(response))
+		.catch(err => res.json(err));
 });
 
 module.exports = router;
