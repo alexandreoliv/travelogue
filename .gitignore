@@ -7,7 +7,3 @@ npm-debug.log
 
 # Environment Variables should NEVER be published
 .env
-
-package-lock.json
-/client/package-lock.json
-.jshintrc
