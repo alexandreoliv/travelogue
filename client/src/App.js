@@ -51,19 +51,8 @@ class App extends Component {
         .catch(err => console.log(err));
     }
 
-	getAllUserCountries = () => {
-        axios.get('http://localhost:5000/api/countries', {withCredentials: true})
-        .then (response => {
-            this.setState({
-                countries: response.data,
-            })
-			if (this.state.countries.length === 0) return 0;
-        })
-        .catch(err => console.log(err));
-    }
-
 	getUserCountries = () => {
-        axios.get('http://localhost:5000/api/countries/user', { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_API_URL}/countries/user`, { withCredentials: true })
         .then (response => {
             this.setState({
                 countries: response.data,
@@ -75,7 +64,7 @@ class App extends Component {
 
 	addCountry = (country, city, details, visited) => {
 		axios
-			.post('http://localhost:5000/api/countries', { country, city, details, visited }, { withCredentials: true })			
+			.post(`${process.env.REACT_APP_API_URL}/countries`, { country, city, details, visited }, { withCredentials: true })			
 			.then(resp => {
 				this.getUserCountries();
 			})
@@ -86,7 +75,7 @@ class App extends Component {
 
 	editCountry = (id, city, details, visited) => {
         axios
-			.put('http://localhost:5000/api/countries', { id, city, details, visited }, { withCredentials: true })			
+			.put(`${process.env.REACT_APP_API_URL}/countries`, { id, city, details, visited }, { withCredentials: true })			
 			.then(resp => {
 				this.getUserCountries();
 			})
@@ -97,7 +86,7 @@ class App extends Component {
 
 	deleteCountry = (id) => {
         axios
-		.delete(`http://localhost:5000/api/countries/${id}`, { withCredentials: true })
+		.delete(`${process.env.REACT_APP_API_URL}/countries/${id}`, { withCredentials: true })
         .then(resp => {
             this.setState({
                 countries: this.state.countries.filter(country => country._id !== resp.data._id)

@@ -48,6 +48,14 @@ app.use("/api", countryRouter);
 const authRouter = require('./routes/auth'); // <== has to be added
 app.use('/api', authRouter); // <== has to be added
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.use((req, res) => {
+	// if no routes match, send them the React HTML
+	res.sendFile(__dirname + "/client/build/index.html");
+});
+
 // to handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
