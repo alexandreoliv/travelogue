@@ -51,10 +51,10 @@ class Map extends Component {
 				'countriesVisited',
 				['in', 'ADM0_A3_IS'].concat(countries.filter(country => country.visited).map(country => country.country.code))
 			);
-
+			
 			map.on('click', 'countriesVisited', function(mapElement) {
 				const cCode = mapElement.features[0].properties.ADM0_A3_IS; // grab the country code from the map properties
-				fetch(`https://restcountries.eu/rest/v2/alpha/${cCode}`) // using template tags to create the API request
+				fetch(`https://restcountries.com/v2/alpha/${cCode}`) // using template tags to create the API request
 					.then(data => data.json()) // fetch returns an object with a .json() method, which returns a promise
 					.then(country => {
 						// country contains the data from the API request
@@ -102,7 +102,7 @@ class Map extends Component {
 
 			map.on('click', 'countriesNotVisited', function(mapElement) {
 				const cCode = mapElement.features[0].properties.ADM0_A3_IS; // grab the country code from the map properties
-				fetch(`https://restcountries.eu/rest/v2/alpha/${cCode}`) // using template tags to create the API request
+				fetch(`https://restcountries.com/v2/alpha/${cCode}`) // using template tags to create the API request
 					.then(data => data.json()) // fetch returns an object with a .json() method, which returns a promise
 					.then(country => {
 						// country contains the data from the API request

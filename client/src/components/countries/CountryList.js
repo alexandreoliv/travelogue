@@ -38,7 +38,7 @@ class CountryList extends Component {
             <div className="country-list">
                 <div>
                     <p style={{color: '#137ff9'}}>Click on any country to open or close the edit mode</p>
-                    <div><h5 style={{textDecoration: 'underline'}}>Already Visited:</h5>
+                    <div><h5 style={{textDecoration: 'underline'}}>Already visited:</h5>
                     {this.state.countries
                         .filter(country => country.visited)
                         .sort((a, b) => {

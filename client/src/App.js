@@ -42,7 +42,7 @@ class App extends Component {
 	};
 
 	getAllCountries = () => {
-        axios.get('https://restcountries.eu/rest/v2/all')
+        axios.get('https://restcountries.com/v2/all')
         .then (response => {
             this.setState({
                 allCountries: response.data
